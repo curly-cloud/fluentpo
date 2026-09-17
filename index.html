@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FluentPO — Anglais Product Owner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; background:#FADFC4; -webkit-font-smoothing:antialiased; }
+  a { color:#5B3BD4; } a:hover { color:#432BA4; }
+  @keyframes pulseRec { 0%{box-shadow:0 0 0 0 rgba(228,87,61,.35)} 70%{box-shadow:0 0 0 18px rgba(228,87,61,0)} 100%{box-shadow:0 0 0 0 rgba(228,87,61,0)} }
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<template id="tpl">
+<div style="font-family:'DM Sans',Helvetica,sans-serif;color:#1B2138;background:#FADFC4;padding:30px 30px 46px;min-height:100vh;box-sizing:border-box">
+<div style="max-width:1280px;margin:0 auto;background:#F7F7FC;border-radius:30px;box-shadow:0 30px 60px -40px rgba(27,33,56,.35);overflow:hidden">
+
+  <!-- NAV -->
+  <div style="display:flex;align-items:center;gap:26px;padding:22px 34px;border-bottom:1px solid #ECECF5;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:11px">
+      <div style="width:34px;height:34px;border-radius:999px;background:#5B3BD4;color:#fff;display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',Georgia,serif;font-size:18px">f</div>
+      <div style="font-size:19px;font-weight:700;letter-spacing:-.01em">FluentPO</div>
+    </div>
+    <div style="flex:1;min-width:20px"></div>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <div onClick="{{ goDash }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navDashBg }};color:{{ navDashFg }}" style-hover="background:#EFEFF8">Suivi</div>
+      <div onClick="{{ goLesson }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navLessonBg }};color:{{ navLessonFg }}" style-hover="background:#EFEFF8">Leçon</div>
+      <div onClick="{{ goGram }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navGramBg }};color:{{ navGramFg }}" style-hover="background:#EFEFF8">Grammaire</div>
+      <div onClick="{{ goVocab }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navVocabBg }};color:{{ navVocabFg }}" style-hover="background:#EFEFF8">Vocabulaire</div>
+      <div onClick="{{ goCards }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navCardsBg }};color:{{ navCardsFg }}" style-hover="background:#EFEFF8">Cartes</div>
+      <div onClick="{{ goOral }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navOralBg }};color:{{ navOralFg }}" style-hover="background:#EFEFF8">Oral</div>
+      <div onClick="{{ goSettings }}" style="padding:9px 14px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ navSetBg }};color:{{ navSetFg }}" style-hover="background:#EFEFF8">Réglages</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 8px 8px 16px;border:1px solid #DCDCEB;border-radius:999px;background:#fff">
+      <span style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;color:#6B7192">SÉRIE 14 J</span>
+      <div style="width:30px;height:30px;border-radius:999px;overflow:hidden;background:#E9E4FB"><img src="assets/portrait-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block"></div>
+    </div>
+  </div>
+
+  <!-- SUIVI -->
+  <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <!-- HERO ÉDITORIAL -->
+      <div style="padding:52px 34px 44px;display:flex;align-items:center;justify-content:center;gap:34px">
+        <div style="flex:0 1 150px;min-width:0;display:flex;flex-direction:column;gap:26px;align-items:center">
+          <div style="width:100%;max-width:132px;aspect-ratio:3/4;border-radius:78px 78px 12px 12px;overflow:hidden;background:#E9E4FB"><img src="assets/portrait-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block"></div>
+          <div style="width:10px;height:10px;border-radius:999px;background:#5B3BD4;align-self:flex-end"></div>
+          <div style="width:100%;max-width:118px;aspect-ratio:9/10;border-radius:14px;overflow:hidden;background:#FBDCC9"><img src="assets/portrait-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 28%;display:block"></div>
+        </div>
+
+        <div style="flex:1 1 560px;max-width:620px;text-align:center">
+          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#6B7192;margin-bottom:18px">MARDI 16 SEPT. · 25 MIN PRÉVUES</div>
+          <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:62px;line-height:1.04;margin:0 0 8px;font-weight:400;letter-spacing:-.015em">Passe au niveau</h1>
+          <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:6px">
+            <div style="background:#1B2138;color:#F7F7FC;padding:6px 20px;border-radius:12px;font-family:'DM Serif Display',Georgia,serif;font-size:48px;line-height:1.1">B2</div>
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-style:italic;font-size:56px;line-height:1.05">solide</div>
+            <div onClick="{{ goLesson }}" style="padding:15px 28px;border:1px solid #1B2138;border-radius:999px;font-size:15px;font-weight:700;cursor:pointer;background:#fff" style-hover="background:#1B2138;color:#F7F7FC">Commencer →</div>
+          </div>
+          <div style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.1;margin-bottom:16px">en <span style="font-style:italic">un mois</span>, C1 en deux</div>
+          <p style="margin:0 auto;max-width:440px;font-size:15px;line-height:1.6;color:#5C6280;text-wrap:pretty">Anglais général et vocabulaire Product Owner, 25 minutes par jour. Jalon B2 solide au 16 octobre, C1 solide au 16 novembre.</p>
+        </div>
+
+        <div style="flex:0 1 150px;min-width:0;display:flex;flex-direction:column;gap:26px;align-items:center">
+          <div style="width:100%;max-width:124px;aspect-ratio:9/10;border-radius:70px 70px 70px 16px;overflow:hidden;background:#D8E7FA"><img src="assets/portrait-2.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block"></div>
+          <div style="width:9px;height:9px;border-radius:999px;background:#E4573D;align-self:flex-start"></div>
+          <div style="width:100%;max-width:130px;aspect-ratio:1;border-radius:999px;overflow:hidden;background:#D6F0E4"><img src="assets/portrait-1.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:50% 35%;display:block"></div>
+        </div>
+      </div>
+
+      <!-- PROGRESSION -->
+      <div style="padding:8px 34px 0;display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 420px;min-width:0;background:#1B2138;border-radius:26px;padding:28px;color:#F7F7FC">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#A9B0CF">JALON 1 · B2 SOLIDE</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:#A9B0CF">16 OCT. · J-12</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:16px;margin-bottom:18px;flex-wrap:wrap">
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:56px;line-height:.85">B2</div>
+            <div style="font-size:14px;color:#A9B0CF;padding-bottom:10px">grammaire + oral d'entretien</div>
+            <div style="margin-left:auto;font-size:34px;font-weight:700;color:#4ED8A0">{{ b2Label }}</div>
+          </div>
+          <div style="height:12px;border-radius:999px;background:#2E3556;overflow:hidden;margin-bottom:10px"><div style="height:100%;border-radius:999px;background:linear-gradient(90deg,#189E74,#4ED8A0);width:{{ b2Pct }}"></div></div>
+          <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10.5px;color:#7B82A6;margin-bottom:22px"><span>B1+</span><span>B2 SOLIDE</span></div>
+          <div style="display:flex;align-items:center;gap:14px;padding-top:18px;border-top:1px solid #313858;flex-wrap:wrap">
+            <div style="font-size:14px;color:#A9B0CF">Jalon 2 · <strong style="color:#F7F7FC">C1 solide</strong> — 16 nov.</div>
+            <div style="flex:1;min-width:90px;height:7px;border-radius:999px;background:#2E3556"><div style="height:100%;width:24%;border-radius:999px;background:#8FBBF0"></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;color:#8FBBF0">24%</div>
+          </div>
+        </div>
+
+        <div style="flex:1 1 320px;min-width:0;background:#fff;border-radius:26px;padding:28px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+            <div><div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:4px">RÉGULARITÉ · 12 SEMAINES</div><div style="display:flex;align-items:baseline;gap:8px"><span style="font-family:'DM Serif Display',Georgia,serif;font-size:32px">14</span><span style="font-size:13px;color:#5C6280">jours d'affilée</span></div></div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:#0F6E50;background:#E4F5EE;padding:7px 11px;border-radius:999px">RECORD 18</div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(12,1fr);gap:5px">
+            <div style="aspect-ratio:1;border-radius:4px;background:#EDEDF6"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#EDEDF6"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div>
+            <div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#EDEDF6"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div>
+            <div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#EDEDF6"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div>
+            <div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#C6EADB"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#8AD3B8"></div><div style="aspect-ratio:1;border-radius:4px;background:#189E74"></div><div style="aspect-ratio:1;border-radius:4px;background:#0F6E50;outline:2px solid #0F6E50;outline-offset:2px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;color:#5C6280;margin-top:10px"><span>JUIL.</span><span>AUJOURD'HUI</span></div>
+          <div style="display:flex;gap:20px;margin-top:18px;padding-top:18px;border-top:1px solid #EDEDF6">
+            <div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px">92%</div><div style="font-size:12.5px;color:#6B7192">assiduité 30 j</div></div>
+            <div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px">6 h 10</div><div style="font-size:12.5px;color:#6B7192">ce mois-ci</div></div>
+            <div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px">218</div><div style="font-size:12.5px;color:#6B7192">expressions vues</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROGRAMME + RÉVISIONS -->
+      <div style="padding:20px 34px 0;display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 420px;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192">PROGRAMME D'AUJOURD'HUI</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:#0F6E50">2 / 4 FAIT</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div onClick="{{ goLesson }}" style="display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:18px;cursor:pointer" style-hover="box-shadow:0 10px 24px -18px rgba(27,33,56,.5)">
+              <div style="width:38px;height:38px;border-radius:999px;background:#E9E4FB;color:#5B3BD4;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px">01</div>
+              <div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15.5px">Leçon · Stakeholder management</div><div style="font-size:13px;color:#6B7192">Texte, audio et vidéo — 8 min</div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#B4462C;background:#FBE5DF;padding:6px 10px;border-radius:999px">À FAIRE</div>
+            </div>
+            <div onClick="{{ goGram }}" style="display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:18px;cursor:pointer" style-hover="box-shadow:0 10px 24px -18px rgba(27,33,56,.5)">
+              <div style="width:38px;height:38px;border-radius:999px;background:#E4F5EE;color:#0F6E50;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px">02</div>
+              <div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15.5px">Grammaire · Present perfect vs past simple</div><div style="font-size:13px;color:#6B7192">Règle + 5 questions — 5 min</div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#0F6E50;background:#E4F5EE;padding:6px 10px;border-radius:999px">FAIT</div>
+            </div>
+            <div onClick="{{ goVocab }}" style="display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:18px;cursor:pointer" style-hover="box-shadow:0 10px 24px -18px rgba(27,33,56,.5)">
+              <div style="width:38px;height:38px;border-radius:999px;background:#E4F5EE;color:#0F6E50;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px">03</div>
+              <div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15.5px">Vocabulaire PO · Delivery &amp; priorisation</div><div style="font-size:13px;color:#6B7192">3 termes en contexte produit — 4 min</div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#0F6E50;background:#E4F5EE;padding:6px 10px;border-radius:999px">FAIT</div>
+            </div>
+            <div onClick="{{ goOral }}" style="display:flex;align-items:center;gap:16px;background:#fff;border-radius:18px;padding:18px;cursor:pointer" style-hover="box-shadow:0 10px 24px -18px rgba(27,33,56,.5)">
+              <div style="width:38px;height:38px;border-radius:999px;background:#FDF0DC;color:#9A6413;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px">04</div>
+              <div style="flex:1;min-width:0"><div style="font-weight:700;font-size:15.5px">Pratique orale · Sprint review</div><div style="font-size:13px;color:#6B7192">8 phrases à répéter — 8 min</div></div>
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#B4462C;background:#FBE5DF;padding:6px 10px;border-radius:999px">À FAIRE</div>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1 1 300px;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192">À RÉVISER · REPORTÉ</div>
+            <div onClick="{{ goCards }}" style="font-size:13px;font-weight:700;color:#5B3BD4;cursor:pointer">Tout réviser →</div>
+          </div>
+          <div style="background:#fff;border-radius:22px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #F1F1F8"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">to push back</div><div style="font-size:12.5px;color:#6B7192">échoué 2 fois</div></div><div style="font-family:'DM Mono',monospace;font-size:10.5px;color:#B4462C">J-2</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #F1F1F8"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">trade-off</div><div style="font-size:12.5px;color:#6B7192">échoué 1 fois</div></div><div style="font-family:'DM Mono',monospace;font-size:10.5px;color:#B4462C">J-3</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #F1F1F8"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">used to + V</div><div style="font-size:12.5px;color:#6B7192">grammaire</div></div><div style="font-family:'DM Mono',monospace;font-size:10.5px;color:#B4462C">J-1</div></div>
+            <div style="padding:16px 18px;font-size:13px;color:#6B7192">+ 6 autres notions en attente</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TROIS PILIERS -->
+      <div style="margin-top:36px;padding:34px;border-top:1px solid #ECECF5;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px;text-align:center">
+        <div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:26px;margin-bottom:8px">B2 solide en 1 mois</div><div style="font-size:14px;line-height:1.6;color:#5C6280">Grammaire ciblée, lecture et écoute quotidiennes, jalon évalué le 16 octobre.</div></div>
+        <div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:26px;margin-bottom:8px">C1 solide en 2 mois</div><div style="font-size:14px;line-height:1.6;color:#5C6280">Nuances, oral d'entretien et argumentation produit, jalon le 16 novembre.</div></div>
+        <div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:26px;margin-bottom:8px">Pensé pour un PO</div><div style="font-size:14px;line-height:1.6;color:#5C6280"><a href="#vocab">Vocabulaire agilité, delivery et stakeholders</a> en contexte produit réel.</div></div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- LEÇON -->
+  <sc-if value="{{ isLesson }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:34px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:24px">
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">LEÇON 14 / 30 · NIVEAU B2</div>
+          <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.05;margin:0 0 8px;font-weight:400">Stakeholder <span style="font-style:italic">management</span></h1>
+          <div style="font-size:15px;color:#5C6280">Aligner des parties prenantes aux priorités divergentes</div>
+        </div>
+        <div style="display:flex;gap:6px;background:#EDEDF6;padding:5px;border-radius:999px">
+          <div onClick="{{ setText }}" style="padding:11px 24px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ tabTextBg }};color:{{ tabTextFg }}">Texte</div>
+          <div onClick="{{ setAudio }}" style="padding:11px 24px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ tabAudioBg }};color:{{ tabAudioFg }}">Audio</div>
+          <div onClick="{{ setVideo }}" style="padding:11px 24px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;background:{{ tabVideoBg }};color:{{ tabVideoFg }}">Vidéo</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <sc-if value="{{ isText }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff;border-radius:26px;padding:34px 38px">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:18px">LECTURE · 480 MOTS · 4 MIN</div>
+              <p style="margin:0 0 18px;font-size:17.5px;line-height:1.68;max-width:64ch;text-wrap:pretty">As a Product Owner, you rarely own the roadmap alone. <span style="background:#E9E4FB;border-bottom:1px solid #5B3BD4">Stakeholders</span> — sales, support, engineering, legal — all arrive with requests that feel urgent to them.</p>
+              <p style="margin:0 0 18px;font-size:17.5px;line-height:1.68;max-width:64ch;text-wrap:pretty">Your job is not to say yes. It is to <span style="background:#E9E4FB;border-bottom:1px solid #5B3BD4">push back</span> with evidence, make the <span style="background:#E9E4FB;border-bottom:1px solid #5B3BD4">trade-off</span> explicit, and keep everyone aligned on the outcome you committed to.</p>
+              <p style="margin:0;font-size:17.5px;line-height:1.68;max-width:64ch;text-wrap:pretty">A short weekly note works better than a long steering committee: “Here is what shipped, here is what slipped, and here is why.” Written clarity buys you room to <span style="background:#E9E4FB;border-bottom:1px solid #5B3BD4">descope</span> without losing trust.</p>
+              <div style="display:flex;align-items:center;gap:14px;margin-top:26px;padding-top:20px;border-top:1px solid #F1F1F8">
+                <div style="flex:1;height:5px;background:#EDEDF6;border-radius:999px"><div style="width:62%;height:100%;background:#189E74;border-radius:999px"></div></div>
+                <div style="font-family:'DM Mono',monospace;font-size:11px;color:#6B7192">62% LU</div>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isAudio }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#1B2138;border-radius:26px;padding:32px;color:#F7F7FC">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#A9B0CF;margin-bottom:14px">NARRATION · ACCENT BRITANNIQUE · 2:48</div>
+              <div style="font-family:'DM Serif Display',Georgia,serif;font-size:26px;line-height:1.4;margin-bottom:26px;max-width:52ch">“Your job is not to say yes. It is to push back with evidence.”</div>
+              <div style="display:flex;align-items:flex-end;gap:3px;height:78px;margin-bottom:12px">
+                <div style="flex:1;background:#4ED8A0;height:30%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:62%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:44%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:88%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:54%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:72%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:36%;border-radius:2px"></div><div style="flex:1;background:#4ED8A0;height:68%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:48%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:80%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:40%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:58%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:70%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:34%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:52%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:64%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:44%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:76%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:38%;border-radius:2px"></div><div style="flex:1;background:#3A4166;height:60%;border-radius:2px"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:#A9B0CF;margin-bottom:24px"><span>1:12</span><span>-1:36</span></div>
+              <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
+                <div style="width:58px;height:58px;border-radius:999px;background:#4ED8A0;color:#1B2138;display:flex;align-items:center;justify-content:center;font-size:19px;cursor:pointer">❚❚</div>
+                <div style="font-size:15px;color:#A9B0CF;cursor:pointer">↺ 15 s</div>
+                <div style="font-size:15px;color:#A9B0CF;cursor:pointer">15 s ↻</div>
+                <div style="display:flex;gap:6px">
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;padding:8px 12px;border-radius:999px;background:#2E3556;color:#A9B0CF">0.75×</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;padding:8px 12px;border-radius:999px;background:#4ED8A0;color:#1B2138">1×</div>
+                  <div style="font-family:'DM Mono',monospace;font-size:12px;padding:8px 12px;border-radius:999px;background:#2E3556;color:#A9B0CF">1.25×</div>
+                </div>
+                <div style="font-family:'DM Mono',monospace;font-size:12px;padding:8px 12px;border-radius:999px;border:1px solid #3A4166;color:#A9B0CF">BOUCLE A/B</div>
+              </div>
+            </div>
+            <div style="background:#fff;border-radius:26px;padding:26px">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:12px">TRANSCRIPTION SYNCHRONISÉE</div>
+              <div style="font-size:16.5px;line-height:1.7;max-width:64ch">…all arrive with requests that <strong style="background:#E9E4FB">feel urgent</strong> to them. Your job is not to say yes.</div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ isVideo }}" hint-placeholder-val="{{ false }}">
+            <div style="border-radius:26px;overflow:hidden;background:repeating-linear-gradient(135deg,#E4E4F0 0 12px,#EFEFF8 12px 24px);aspect-ratio:16/9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+              <div style="width:64px;height:64px;border-radius:999px;background:#1B2138;color:#F7F7FC;display:flex;align-items:center;justify-content:center;font-size:20px;cursor:pointer">▶</div>
+              <div style="font-family:'DM Mono',monospace;font-size:11.5px;color:#6B7192;background:#fff;padding:7px 13px;border-radius:999px">extrait vidéo · 4:10 · sous-titres EN / FR</div>
+            </div>
+            <div style="background:#fff;border-radius:26px;padding:26px">
+              <div style="font-family:'DM Serif Display',Georgia,serif;font-size:28px;line-height:1.15;margin-bottom:6px">“Saying no without losing trust”</div>
+              <div style="font-size:14px;color:#6B7192;margin-bottom:20px">Interview · Head of Product, fintech londonienne</div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;gap:14px;background:#F7F7FC;border-radius:14px;padding:14px 16px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:#5B3BD4">0:42</span><span style="font-size:15.5px;line-height:1.45">“We deliberately descoped that epic.”</span></div>
+                <div style="display:flex;gap:14px;background:#F7F7FC;border-radius:14px;padding:14px 16px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:#5B3BD4">2:05</span><span style="font-size:15.5px;line-height:1.45">“Let's take that offline and re-prioritise.”</span></div>
+                <div style="display:flex;gap:14px;background:#F7F7FC;border-radius:14px;padding:14px 16px"><span style="font-family:'DM Mono',monospace;font-size:11.5px;color:#5B3BD4">3:18</span><span style="font-size:15.5px;line-height:1.45">“That's a trade-off the business has to own.”</span></div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#E9E4FB;border-radius:24px;padding:24px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#432BA4;margin-bottom:10px">EXPRESSIONS DE LA LEÇON</div>
+            <div style="font-size:14px;line-height:1.6;color:#432BA4;margin-bottom:16px">Clique un mot surligné dans le texte pour l'envoyer dans tes cartes mémo.</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="background:#fff;border-radius:12px;padding:12px 14px;font-size:14.5px;display:flex;justify-content:space-between"><span>stakeholder</span><span style="color:#5B3BD4;font-weight:700">+</span></div>
+              <div style="background:#fff;border-radius:12px;padding:12px 14px;font-size:14.5px;display:flex;justify-content:space-between"><span>to push back</span><span style="color:#189E74;font-weight:700">✓</span></div>
+              <div style="background:#fff;border-radius:12px;padding:12px 14px;font-size:14.5px;display:flex;justify-content:space-between"><span>trade-off</span><span style="color:#189E74;font-weight:700">✓</span></div>
+              <div style="background:#fff;border-radius:12px;padding:12px 14px;font-size:14.5px;display:flex;justify-content:space-between"><span>to descope</span><span style="color:#5B3BD4;font-weight:700">+</span></div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:24px;padding:24px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:12px">ÉTAPE 1 / 4</div>
+            <div style="font-size:14.5px;line-height:1.6;color:#5C6280;margin-bottom:18px">Prochaine étape : grammaire du jour — <em>present perfect</em>.</div>
+            <div onClick="{{ goGram }}" style="padding:15px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:15px;text-align:center;cursor:pointer">Continuer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- GRAMMAIRE -->
+  <sc-if value="{{ isGram }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:34px">
+      <div style="margin-bottom:24px">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">GRAMMAIRE DU JOUR · B2 → C1 · 5 MIN</div>
+        <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.05;margin:0;font-weight:400">Present perfect <span style="font-style:italic">vs</span> past simple</h1>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#fff;border-radius:26px;padding:28px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#0F6E50;margin-bottom:12px">LA RÈGLE EN UNE PHRASE</div>
+            <div style="font-size:18px;line-height:1.62;max-width:58ch;text-wrap:pretty">Le <strong>past simple</strong> raconte un moment terminé et daté. Le <strong>present perfect</strong> relie un fait passé au présent : bilan, expérience, résultat encore vrai.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start">
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#2D5EA8;background:#E4EDFB;padding:5px 8px;border-radius:999px;margin-top:2px">PAST</div>
+              <div><div style="font-size:16.5px;line-height:1.45">We <strong>shipped</strong> the beta <em>last sprint</em>.</div><div style="font-size:13px;color:#6B7192;margin-top:3px">Sprint fini, date précise.</div></div>
+            </div>
+            <div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start">
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#0F6E50;background:#E4F5EE;padding:5px 8px;border-radius:999px;margin-top:2px">PERF</div>
+              <div><div style="font-size:16.5px;line-height:1.45">We <strong>have shipped</strong> three releases <em>this quarter</em>.</div><div style="font-size:13px;color:#6B7192;margin-top:3px">Trimestre en cours → bilan.</div></div>
+            </div>
+            <div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start">
+              <div style="font-family:'DM Mono',monospace;font-size:10px;color:#0F6E50;background:#E4F5EE;padding:5px 8px;border-radius:999px;margin-top:2px">PERF</div>
+              <div><div style="font-size:16.5px;line-height:1.45">I <strong>have worked</strong> with distributed teams <em>for two years</em>.</div><div style="font-size:13px;color:#6B7192;margin-top:3px">Utile en entretien : encore vrai aujourd'hui.</div></div>
+            </div>
+          </div>
+        </div>
+        <div style="flex:1 1 320px;min-width:0">
+          <div style="background:#1B2138;border-radius:26px;padding:28px;color:#F7F7FC">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#A9B0CF">MISE EN APPLICATION</div>
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:#A9B0CF">{{ quizStep }} / 5</div>
+            </div>
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;line-height:1.4;margin-bottom:22px">“Our NPS ____ by 6 points since the redesign.”</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div onClick="{{ pickWrong }}" style="padding:16px 18px;border-radius:14px;border:1px solid {{ quizWrongBorder }};background:{{ quizWrongBg }};font-size:16px;cursor:pointer">improved</div>
+              <div onClick="{{ pickRight }}" style="padding:16px 18px;border-radius:14px;border:1px solid {{ quizRightBorder }};background:{{ quizRightBg }};font-size:16px;cursor:pointer">has improved</div>
+            </div>
+            <div style="margin-top:18px;font-size:14px;line-height:1.55;color:#A9B0CF;min-height:44px">{{ quizFeedback }}</div>
+            <div style="display:flex;gap:10px;margin-top:8px">
+              <div style="padding:14px 20px;border-radius:999px;border:1px solid #3A4166;color:#A9B0CF;font-size:14px;font-weight:700;cursor:pointer">Passer</div>
+              <div style="flex:1;padding:14px 20px;border-radius:999px;background:#4ED8A0;color:#1B2138;font-size:14px;font-weight:700;text-align:center;cursor:pointer">Question suivante</div>
+            </div>
+          </div>
+          <div style="margin-top:14px;background:#fff;border-radius:24px;padding:22px;font-size:14.5px;line-height:1.6;color:#5C6280">Erreurs récurrentes : <strong style="color:#1B2138">since / for</strong> et les verbes d'état. Une fiche de rattrapage est ajoutée à tes cartes mémo.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- VOCABULAIRE -->
+  <sc-if value="{{ isVocab }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:34px" id="vocab">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:24px">
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">LOT DU JOUR · DELIVERY &amp; PRIORISATION</div>
+          <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.05;margin:0;font-weight:400">Vocabulaire <span style="font-style:italic">Product Owner</span></h1>
+        </div>
+        <div style="min-width:230px">
+          <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:11px;color:#6B7192;margin-bottom:8px"><span>MAÎTRISÉ</span><span>{{ masteredCount }} / 3</span></div>
+          <div style="height:9px;border-radius:999px;background:#EDEDF6"><div style="height:100%;border-radius:999px;background:#189E74;width:{{ masteredPct }}"></div></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <sc-for list="{{ vocab }}" as="w" hint-placeholder-count="3">
+          <div style="background:#fff;border-radius:24px;padding:24px 26px;display:flex;gap:26px;align-items:center;flex-wrap:wrap">
+            <div style="flex:1 1 220px;min-width:0">
+              <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:5px">
+                <div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px">{{ w.en }}</div>
+                <div style="font-family:'DM Mono',monospace;font-size:12px;color:#5C6280">{{ w.ipa }}</div>
+                <div style="font-size:16px;color:#5B3BD4;cursor:pointer">♪</div>
+              </div>
+              <div style="font-size:14.5px;color:#5C6280">{{ w.fr }}</div>
+            </div>
+            <div style="flex:2 1 300px;min-width:0;font-size:15.5px;line-height:1.55;background:#F7F7FC;border-radius:14px;padding:15px 17px;font-style:italic">“{{ w.ex }}”</div>
+            <div style="flex:0 0 auto;display:flex;gap:9px">
+              <sc-if value="{{ w.mastered }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ w.toggle }}" style="padding:12px 19px;border-radius:999px;background:#0F6E50;color:#fff;font-size:13.5px;font-weight:700;cursor:pointer">✓ Maîtrisé</div>
+              </sc-if>
+              <sc-if value="{{ w.notMastered }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ w.toggle }}" style="padding:12px 19px;border-radius:999px;border:1px solid #DCDCEB;color:#5C6280;font-size:13.5px;font-weight:700;cursor:pointer" style-hover="border-color:#189E74;color:#189E74">Maîtrisé</div>
+              </sc-if>
+              <div style="padding:12px 19px;border-radius:999px;background:#FBE5DF;color:#B4462C;font-size:13.5px;font-weight:700;cursor:pointer">À revoir</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:#E9E4FB;border-radius:24px;padding:22px 26px">
+        <div style="flex:1;min-width:230px;font-size:14.5px;line-height:1.6;color:#432BA4">Les termes marqués « à revoir » alimentent automatiquement tes cartes mémo du soir et des jours suivants.</div>
+        <div onClick="{{ goCards }}" style="padding:15px 26px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:15px;cursor:pointer">Réviser maintenant</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- CARTES MÉMO -->
+  <sc-if value="{{ isCards }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:34px">
+      <div style="margin-bottom:24px">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">RÉVISIONS DU JOUR · 12 CARTES · 4 REPORTÉES</div>
+        <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.05;margin:0;font-weight:400">Cartes <span style="font-style:italic">mémo</span></h1>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <div onClick="{{ toggleFlip }}" style="width:100%;height:340px;perspective:1400px;cursor:pointer">
+            <div style="position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform:{{ cardTransform }}">
+              <div style="position:absolute;inset:0;backface-visibility:hidden;background:#fff;border-radius:28px;padding:36px;display:flex;flex-direction:column;box-shadow:0 20px 40px -30px rgba(27,33,56,.5)">
+                <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192">RECTO · EN</div>
+                <div style="flex:1;display:flex;align-items:center"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:48px;line-height:1.08">to push back on a request</div></div>
+                <div style="font-size:13.5px;color:#5C6280">Clique la carte pour la retourner</div>
+              </div>
+              <div style="position:absolute;inset:0;backface-visibility:hidden;transform:rotateY(180deg);background:#1B2138;color:#F7F7FC;border-radius:28px;padding:36px;display:flex;flex-direction:column;box-shadow:0 20px 40px -30px rgba(27,33,56,.6)">
+                <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#A9B0CF">VERSO · FR</div>
+                <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:16px">
+                  <div style="font-family:'DM Serif Display',Georgia,serif;font-size:36px;line-height:1.15">refuser / repousser une demande</div>
+                  <div style="font-size:16px;line-height:1.55;color:#C3C9E4;font-style:italic;max-width:50ch">“I pushed back on that request and asked for usage data first.”</div>
+                </div>
+                <div style="font-family:'DM Mono',monospace;font-size:11px;color:#A9B0CF">VU 3 FOIS · ÉCHOUÉ 1 · REPORTÉE DE J-2</div>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px">
+            <div onClick="{{ markAgain }}" style="flex:1;text-align:center;padding:19px;border-radius:20px;background:#FBE5DF;color:#B4462C;font-weight:700;font-size:15px;cursor:pointer">À revoir<div style="font-family:'DM Mono',monospace;font-size:10.5px;font-weight:400;margin-top:4px">REVIENT DEMAIN</div></div>
+            <div onClick="{{ markKnown }}" style="flex:1;text-align:center;padding:19px;border-radius:20px;background:#0F6E50;color:#fff;font-weight:700;font-size:15px;cursor:pointer">Maîtrisé<div style="font-family:'DM Mono',monospace;font-size:10.5px;font-weight:400;margin-top:4px;color:#CDEEE1">REVIENT DANS 4 JOURS</div></div>
+          </div>
+          <div style="text-align:center;font-size:13.5px;color:#6B7192">{{ srsHint }}</div>
+        </div>
+        <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#fff;border-radius:24px;padding:24px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:14px">AVANCEMENT DU PAQUET</div>
+            <div style="display:flex;gap:4px;margin-bottom:12px">
+              <div style="flex:1;height:6px;border-radius:999px;background:#189E74"></div><div style="flex:1;height:6px;border-radius:999px;background:#189E74"></div><div style="flex:1;height:6px;border-radius:999px;background:#E4573D"></div><div style="flex:1;height:6px;border-radius:999px;background:#189E74"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div><div style="flex:1;height:6px;border-radius:999px;background:#EDEDF6"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10.5px;color:#5C6280"><span>CARTE {{ cardIndex }}/12</span><span>3 MIN RESTANTES</span></div>
+          </div>
+          <div style="background:#fff;border-radius:24px;padding:24px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:14px">REMONTÉES AUTOMATIQUEMENT</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;justify-content:space-between;font-size:14.5px"><span>trade-off</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:#B4462C">J-3</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px"><span>used to + V</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:#B4462C">J-1</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px"><span>runway</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:#B4462C">J-2</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14.5px"><span>to ramp up</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:#B4462C">J-4</span></div>
+            </div>
+          </div>
+          <div style="background:#FDF0DC;border-radius:24px;padding:22px;font-size:14.5px;line-height:1.6;color:#8A5A12">Répétition espacée : une notion échouée revient dès le lendemain, une notion sûre au bout de 4, 9 puis 20 jours.</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- PRATIQUE ORALE -->
+  <sc-if value="{{ isOral }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:34px">
+      <div style="margin-bottom:24px">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">PRATIQUE ORALE · PHRASE 3 / 8 · SPRINT REVIEW</div>
+        <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.05;margin:0;font-weight:400">Répète à <span style="font-style:italic">voix haute</span></h1>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 420px;min-width:0;display:flex;flex-direction:column;gap:16px">
+          <div style="background:#fff;border-radius:26px;padding:30px">
+            <div style="font-family:'DM Serif Display',Georgia,serif;font-size:28px;line-height:1.35;margin-bottom:10px">“We <span style="background:#E9E4FB">deliberately descoped</span> that epic to protect the release date.”</div>
+            <div style="font-family:'DM Mono',monospace;font-size:12px;color:#5C6280;margin-bottom:22px">/wi dɪˈlɪb(ə)rətli dɪˈskəʊpt ðæt ˈɛpɪk/</div>
+            <div style="display:flex;align-items:center;gap:14px;padding-top:20px;border-top:1px solid #F1F1F8">
+              <div style="width:44px;height:44px;border-radius:999px;background:#1B2138;color:#F7F7FC;display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer">▶</div>
+              <div style="flex:1;display:flex;align-items:flex-end;gap:2px;height:32px">
+                <div style="flex:1;background:#1B2138;height:40%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:75%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:55%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:95%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:60%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:35%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:80%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:50%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:70%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:45%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:88%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:38%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:66%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:52%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:74%;border-radius:1px"></div><div style="flex:1;background:#1B2138;height:42%;border-radius:1px"></div>
+              </div>
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:#6B7192">AUDIO DE RÉFÉRENCE</div>
+            </div>
+          </div>
+          <div style="background:#fff;border-radius:26px;padding:30px;display:flex;flex-direction:column;align-items:center;gap:14px">
+            <div onClick="{{ toggleRec }}" style="width:104px;height:104px;border-radius:999px;background:{{ recBg }};color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer;animation:{{ recAnim }}">{{ recIcon }}</div>
+            <div style="font-size:15px;font-weight:700">{{ recLabel }}</div>
+            <div style="font-family:'DM Mono',monospace;font-size:11px;color:#6B7192">{{ recSub }}</div>
+          </div>
+        </div>
+        <div style="flex:1 1 320px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#1B2138;border-radius:26px;padding:28px;color:#F7F7FC">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+              <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#A9B0CF">TA VOIX · COMPARAISON</div>
+              <div style="display:flex;align-items:baseline;gap:5px"><span style="font-family:'DM Serif Display',Georgia,serif;font-size:30px;color:#4ED8A0">82</span><span style="font-family:'DM Mono',monospace;font-size:11px;color:#A9B0CF">/100</span></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <div style="width:40px;height:40px;border-radius:999px;background:#4ED8A0;color:#1B2138;display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer">▶</div>
+              <div style="flex:1;display:flex;align-items:flex-end;gap:2px;height:30px">
+                <div style="flex:1;background:#4ED8A0;height:36%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:70%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:48%;border-radius:1px"></div><div style="flex:1;background:#E4573D;height:92%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:54%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:30%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:76%;border-radius:1px"></div><div style="flex:1;background:#E4573D;height:44%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:64%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:40%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:84%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:34%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:60%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:46%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:72%;border-radius:1px"></div><div style="flex:1;background:#4ED8A0;height:40%;border-radius:1px"></div>
+              </div>
+              <div style="font-family:'DM Mono',monospace;font-size:11px;color:#A9B0CF">0:04</div>
+            </div>
+            <div style="font-size:14.5px;line-height:1.6;color:#C3C9E4">À retravailler : <strong style="color:#F7F7FC">descoped</strong> — le « d » final se prononce /t/. Le rythme de fin de phrase est bon.</div>
+          </div>
+          <div style="display:flex;gap:12px">
+            <div style="padding:15px 22px;border-radius:999px;border:1px solid #DCDCEB;background:#fff;font-weight:700;font-size:15px;color:#5C6280;cursor:pointer">Réessayer</div>
+            <div style="flex:1;padding:15px 22px;border-radius:999px;background:#0F6E50;color:#fff;font-weight:700;font-size:15px;text-align:center;cursor:pointer">Phrase suivante</div>
+          </div>
+          <div style="background:#fff;border-radius:24px;padding:24px">
+            <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:14px">SÉANCE DU JOUR</div>
+            <div style="display:flex;flex-direction:column;gap:11px;font-size:14.5px">
+              <div style="display:flex;justify-content:space-between"><span>1 · “The team is blocked on…”</span><span style="color:#189E74;font-weight:700">88</span></div>
+              <div style="display:flex;justify-content:space-between"><span>2 · “Let me walk you through…”</span><span style="color:#189E74;font-weight:700">91</span></div>
+              <div style="display:flex;justify-content:space-between"><span>3 · “We deliberately descoped…”</span><span style="color:#B4462C;font-weight:700">82</span></div>
+              <div style="display:flex;justify-content:space-between;color:#5C6280"><span>4 · “The trade-off here is…”</span><span style="font-family:'DM Mono',monospace;font-size:11px">À VENIR</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- RÉGLAGES -->
+  <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:34px">
+      <div style="margin-bottom:24px">
+        <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">RÉGLAGES · RAPPELS ET OBJECTIFS</div>
+        <h1 style="font-family:'DM Serif Display',Georgia,serif;font-size:44px;line-height:1.05;margin:0;font-weight:400">Rappel &amp; <span style="font-style:italic">objectifs</span></h1>
+      </div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap">
+        <div style="flex:1 1 380px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#fff;border-radius:26px;overflow:hidden">
+            <div style="padding:28px;display:flex;align-items:center;gap:18px;border-bottom:1px solid #F1F1F8;flex-wrap:wrap">
+              <div><div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:8px">RAPPEL QUOTIDIEN</div><div style="font-family:'DM Serif Display',Georgia,serif;font-size:52px;line-height:1">{{ reminder }}</div><div style="font-size:13.5px;color:#6B7192;margin-top:4px">Pause déjeuner · du lundi au dimanche</div></div>
+              <div style="margin-left:auto;width:56px;height:32px;border-radius:999px;background:#189E74;display:flex;align-items:center;justify-content:flex-end;padding:3px;cursor:pointer"><div style="width:26px;height:26px;border-radius:999px;background:#fff"></div></div>
+            </div>
+            <div style="padding:18px 28px;display:flex;align-items:center;gap:14px;border-bottom:1px solid #F1F1F8"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">Relance si séance non faite</div><div style="font-size:13px;color:#6B7192">Second rappel à 20:30</div></div><div style="width:56px;height:32px;border-radius:999px;background:#189E74;display:flex;align-items:center;justify-content:flex-end;padding:3px;cursor:pointer"><div style="width:26px;height:26px;border-radius:999px;background:#fff"></div></div></div>
+            <div style="padding:18px 28px;display:flex;align-items:center;gap:14px"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">Alerte série en danger</div><div style="font-size:13px;color:#6B7192">Série de 14 jours à protéger</div></div><div style="width:56px;height:32px;border-radius:999px;background:#E3E3EF;display:flex;align-items:center;padding:3px;cursor:pointer"><div style="width:26px;height:26px;border-radius:999px;background:#fff"></div></div></div>
+          </div>
+          <div style="background:#E4F5EE;border-radius:24px;padding:24px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+            <div style="flex:1;min-width:200px"><div style="font-size:15.5px;font-weight:700;color:#0F6E50;margin-bottom:4px">Évaluation de niveau</div><div style="font-size:13.5px;line-height:1.55;color:#137A59">Prochain point d'étape dans 4 jours · 12 min</div></div>
+            <div style="padding:13px 22px;border-radius:999px;background:#0F6E50;color:#fff;font-weight:700;font-size:14.5px;cursor:pointer">Planifier</div>
+          </div>
+        </div>
+        <div style="flex:1 1 340px;min-width:0;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#fff;border-radius:26px;padding:26px">
+            <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:30px">B2</div><div style="font-size:14px;color:#5C6280">solide · 16 octobre</div><div style="margin-left:auto;font-size:13.5px;font-weight:700;color:#5B3BD4;cursor:pointer">Modifier</div></div>
+            <div style="height:9px;border-radius:999px;background:#EDEDF6"><div style="height:100%;border-radius:999px;background:#189E74;width:{{ b2Pct }}"></div></div>
+            <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10.5px;color:#5C6280;margin-top:9px"><span>{{ b2Label }} · RYTHME OK</span><span>25 MIN / JOUR</span></div>
+          </div>
+          <div style="background:#fff;border-radius:26px;padding:26px">
+            <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:12px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:30px">C1</div><div style="font-size:14px;color:#5C6280">solide · 16 novembre</div><div style="margin-left:auto;font-size:13.5px;font-weight:700;color:#5B3BD4;cursor:pointer">Modifier</div></div>
+            <div style="height:9px;border-radius:999px;background:#EDEDF6"><div style="height:100%;border-radius:999px;background:#8FBBF0;width:24%"></div></div>
+            <div style="display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10.5px;color:#5C6280;margin-top:9px"><span>24% · +10 MIN / JOUR CONSEILLÉ</span><span>35 MIN / JOUR</span></div>
+          </div>
+          <div style="background:#fff;border-radius:26px;padding:10px 26px">
+            <div style="padding:16px 0;display:flex;justify-content:space-between;font-size:15px;border-bottom:1px solid #F1F1F8">Priorité vocabulaire PO<span style="color:#6B7192">Élevée ›</span></div>
+            <div style="padding:16px 0;display:flex;justify-content:space-between;font-size:15px;border-bottom:1px solid #F1F1F8">Accent de référence<span style="color:#6B7192">Britannique ›</span></div>
+            <div style="padding:16px 0;display:flex;justify-content:space-between;font-size:15px">Export du suivi<span style="color:#6B7192">CSV ›</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</div>
+</template>
+
+<script>
+/* FluentPO — standalone runtime.
+   Reimplements the claude.ai/design (.dc) binding engine for this one component:
+   {{ expr }} interpolation, onClick handlers, style-hover, <sc-if> and <sc-for>.
+   State + derived values are a faithful port of the component's renderVals(). */
+(function () {
+  "use strict";
+
+  var props = { progressB2: 68, reminderTime: "12:00" };
+
+  var state = {
+    view: "dash",
+    tab: "text",
+    flipped: false,
+    quizStep: 3,
+    quizPick: null,
+    recState: "idle",
+    vocab: [
+      { en: "to descope", ipa: "/dɪˈskəʊp/", fr: "retirer du périmètre", ex: "We descoped the notifications epic to hold the release date.", mastered: true },
+      { en: "stakeholder buy-in", ipa: "/ˈbaɪ ɪn/", fr: "adhésion des parties prenantes", ex: "I need legal buy-in before we open the beta.", mastered: false },
+      { en: "to push back", ipa: "/pʊʃ bæk/", fr: "refuser, repousser une demande", ex: "I pushed back and asked for usage data first.", mastered: false }
+    ]
+  };
+
+  function setState(patch) {
+    if (typeof patch === "function") patch = patch(state);
+    for (var k in patch) state[k] = patch[k];
+    render();
+  }
+
+  // Faithful port of the component's renderVals().
+  function computeVals() {
+    var b2 = props.progressB2 != null ? props.progressB2 : 68;
+    var v = state.view;
+    var go = function (view) { return function () { setState({ view: view }); }; };
+    var n = function (view) {
+      var on = v === view;
+      return { bg: on ? "#1B2138" : "transparent", fg: on ? "#F7F7FC" : "#5C6280" };
+    };
+    var nd = n("dash"), nl = n("lesson"), ng = n("gram"), nv = n("vocab"), nc = n("cards"), no = n("oral"), ns = n("settings");
+
+    var t = state.tab;
+    var tab = function (k) { return { bg: t === k ? "#1B2138" : "transparent", fg: t === k ? "#F7F7FC" : "#5C6280" }; };
+    var tt = tab("text"), ta = tab("audio"), tv = tab("video");
+
+    var pick = state.quizPick;
+    var vocab = state.vocab.map(function (w, i) {
+      return Object.assign({}, w, {
+        notMastered: !w.mastered,
+        toggle: function () {
+          setState(function (s) {
+            return { vocab: s.vocab.map(function (x, j) { return j === i ? Object.assign({}, x, { mastered: !x.mastered }) : x; }) };
+          });
+        }
+      });
+    });
+    var masteredCount = state.vocab.filter(function (w) { return w.mastered; }).length;
+    var rec = state.recState;
+
+    return {
+      b2Pct: b2 + "%",
+      b2Label: b2 + "%",
+      reminder: props.reminderTime != null ? props.reminderTime : "12:00",
+
+      isDash: v === "dash", isLesson: v === "lesson", isGram: v === "gram",
+      isVocab: v === "vocab", isCards: v === "cards", isOral: v === "oral", isSettings: v === "settings",
+      goDash: go("dash"), goLesson: go("lesson"), goGram: go("gram"),
+      goVocab: go("vocab"), goCards: go("cards"), goOral: go("oral"), goSettings: go("settings"),
+      navDashBg: nd.bg, navDashFg: nd.fg,
+      navLessonBg: nl.bg, navLessonFg: nl.fg,
+      navGramBg: ng.bg, navGramFg: ng.fg,
+      navVocabBg: nv.bg, navVocabFg: nv.fg,
+      navCardsBg: nc.bg, navCardsFg: nc.fg,
+      navOralBg: no.bg, navOralFg: no.fg,
+      navSetBg: ns.bg, navSetFg: ns.fg,
+
+      isText: t === "text", isAudio: t === "audio", isVideo: t === "video",
+      setText: function () { setState({ tab: "text" }); },
+      setAudio: function () { setState({ tab: "audio" }); },
+      setVideo: function () { setState({ tab: "video" }); },
+      tabTextBg: tt.bg, tabTextFg: tt.fg,
+      tabAudioBg: ta.bg, tabAudioFg: ta.fg,
+      tabVideoBg: tv.bg, tabVideoFg: tv.fg,
+
+      quizStep: state.quizStep,
+      pickWrong: function () { setState({ quizPick: "wrong" }); },
+      pickRight: function () { setState({ quizPick: "right" }); },
+      quizWrongBg: pick === "wrong" ? "rgba(228,87,61,.22)" : "#252C4A",
+      quizWrongBorder: pick === "wrong" ? "#E4573D" : "#3A4166",
+      quizRightBg: pick === "right" ? "rgba(78,216,160,.2)" : "#252C4A",
+      quizRightBorder: pick === "right" ? "#4ED8A0" : "#3A4166",
+      quizFeedback: pick === "right"
+        ? "✓ « since the redesign » relie le passé au présent → present perfect."
+        : pick === "wrong"
+          ? "✗ « improved » exigerait une date terminée (last year, in May)."
+          : "Indice : « since » ouvre une période encore en cours.",
+
+      cardTransform: state.flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+      toggleFlip: function () { setState(function (s) { return { flipped: !s.flipped }; }); },
+      cardIndex: 5,
+      markAgain: function () { setState({ flipped: false }); },
+      markKnown: function () { setState({ flipped: false }); },
+      srsHint: state.flipped ? "Réponse vue — évalue honnêtement, la carte revient plus vite." : "Retourne la carte avant de te noter.",
+
+      vocab: vocab,
+      masteredCount: masteredCount,
+      masteredPct: Math.round(masteredCount / 3 * 100) + "%",
+
+      toggleRec: function () { setState(function (s) { return { recState: s.recState === "recording" ? "done" : "recording" }; }); },
+      recBg: rec === "recording" ? "#E4573D" : "#1B2138",
+      recIcon: rec === "recording" ? "■" : "●",
+      recAnim: rec === "recording" ? "pulseRec 1.6s infinite" : "none",
+      recLabel: rec === "recording" ? "Enregistrement…" : rec === "done" ? "Enregistré · réécoute ci-contre" : "Clique et répète la phrase",
+      recSub: rec === "recording" ? "0:03 · PARLE NORMALEMENT" : "MICRO · 5 S MAX"
+    };
+  }
+
+  /* ---- binding engine ---- */
+
+  function resolveExpr(expr, scope) {
+    expr = expr.trim();
+    if (expr === "true") return true;
+    if (expr === "false") return false;
+    if (expr.indexOf(".") !== -1) {
+      var parts = expr.split(".");
+      var o = scope[parts[0]];
+      for (var i = 1; i < parts.length && o != null; i++) o = o[parts[i]];
+      return o;
+    }
+    return scope[expr];
+  }
+
+  // Single-binding attribute like value="{{ isDash }}" or onClick="{{ goDash }}".
+  function resolveBinding(attrVal, scope) {
+    var m = /^\s*\{\{([^}]+)\}\}\s*$/.exec(attrVal);
+    if (!m) return interp(attrVal, scope);
+    return resolveExpr(m[1], scope);
+  }
+
+  // String interpolation for text and style attributes.
+  function interp(str, scope) {
+    return str.replace(/\{\{([^}]+)\}\}/g, function (_, e) {
+      var val = resolveExpr(e, scope);
+      return val == null ? "" : String(val);
+    });
+  }
+
+  function renderNode(node, scope, sink) {
+    // text
+    if (node.nodeType === 3) return document.createTextNode(interp(node.nodeValue, scope));
+    // comment -> drop
+    if (node.nodeType === 8) return document.createComment("");
+    if (node.nodeType !== 1) return document.createTextNode("");
+
+    var tag = node.tagName.toLowerCase();
+
+    if (tag === "sc-if") {
+      var frag = document.createDocumentFragment();
+      if (resolveBinding(node.getAttribute("value") || "", scope)) {
+        appendChildren(node, scope, frag, sink);
+      }
+      return frag;
+    }
+
+    if (tag === "sc-for") {
+      var listFrag = document.createDocumentFragment();
+      var list = resolveBinding(node.getAttribute("list") || "", scope) || [];
+      var as = node.getAttribute("as") || "item";
+      list.forEach(function (item) {
+        var childScope = Object.assign({}, scope);
+        childScope[as] = item;
+        appendChildren(node, childScope, listFrag, sink);
+      });
+      return listFrag;
+    }
+
+    var el = document.createElement(tag);
+    var hoverRaw = null;
+    for (var i = 0; i < node.attributes.length; i++) {
+      var a = node.attributes[i];
+      var name = a.name, value = a.value;
+      if (name === "onclick") {
+        var fn = resolveBinding(value, scope);
+        if (typeof fn === "function") sink.handlers.push({ el: el, fn: fn });
+      } else if (name === "style-hover") {
+        hoverRaw = value;
+      } else if (name === "hint-placeholder-val" || name === "hint-placeholder-count") {
+        // editor-only hint; ignore
+      } else {
+        el.setAttribute(name, interp(value, scope));
+      }
+    }
+    appendChildren(node, scope, el, sink);
+    if (hoverRaw != null) {
+      sink.hovers.push({ el: el, base: el.getAttribute("style") || "", hover: interp(hoverRaw, scope) });
+    }
+    return el;
+  }
+
+  function appendChildren(node, scope, target, sink) {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      target.appendChild(renderNode(node.childNodes[i], scope, sink));
+    }
+  }
+
+  var app = document.getElementById("app");
+  var tpl = document.getElementById("tpl");
+
+  function render() {
+    var vals = computeVals();
+    var sink = { handlers: [], hovers: [] };
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < tpl.content.childNodes.length; i++) {
+      frag.appendChild(renderNode(tpl.content.childNodes[i], vals, sink));
+    }
+    app.replaceChildren(frag);
+    sink.handlers.forEach(function (h) { h.el.addEventListener("click", h.fn); });
+    sink.hovers.forEach(function (h) {
+      h.el.addEventListener("mouseenter", function () { h.el.setAttribute("style", h.base + ";" + h.hover); });
+      h.el.addEventListener("mouseleave", function () { h.el.setAttribute("style", h.base); });
+    });
+  }
+
+  render();
+})();
+
+</script>
+</body>
+</html>
