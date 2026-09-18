@@ -19,6 +19,8 @@
   button.reset { font:inherit; color:inherit; border:none; background:none; padding:0; margin:0; cursor:pointer; }
   input.time { font-family:'DM Serif Display',Georgia,serif; font-size:52px; line-height:1; border:none; background:transparent; color:#1B2138; width:150px; padding:0; }
   input.time:focus { outline:none; }
+  input.fld { font-family:'DM Sans',sans-serif; font-size:15px; padding:12px 14px; border:1px solid #DCDCEB; border-radius:12px; background:#F7F7FC; color:#1B2138; min-width:0; }
+  input.fld:focus { outline:none; border-color:#5B3BD4; background:#fff; }
   @keyframes pulseRec { 0%{box-shadow:0 0 0 0 rgba(228,87,61,.35)} 70%{box-shadow:0 0 0 18px rgba(228,87,61,0)} 100%{box-shadow:0 0 0 0 rgba(228,87,61,0)} }
   @keyframes fadein { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
   #toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%); background:#1B2138; color:#F7F7FC; padding:13px 22px; border-radius:999px; font-size:14px; font-weight:700; box-shadow:0 16px 30px -18px rgba(27,33,56,.7); z-index:9999; animation:fadein .2s ease; }
@@ -75,6 +77,7 @@ function load(){
   s.oral=s.oral||{};          // idx -> best score
   s.minutes=s.minutes||{};    // 'YYYY-MM' -> seconds
   s.program=s.program||{day:'',lesson:false,gram:false,vocab:false,oral:false};
+  s.custom=s.custom||[];       // vocabulaire ajouté par l'utilisateur {en, fr, ts}
   s.settings=Object.assign({reminderTime:'12:00',reminderOn:true,relanceOn:true,streakAlert:false,
     accent:'en-GB',priority:'Élevée',b2:68,c1:24}, s.settings||{});
   return s;
@@ -132,6 +135,10 @@ function dailyPhrases(){
   const out=[]; for(let i=0;i<n;i++) out.push(P[(start+i)%P.length]);
   return out;
 }
+/* termes = base ebook + ajouts perso ; findTerm sert au recto/verso des cartes */
+function customTerms(){ return (S.custom||[]).map(c=>({en:c.en,fr:c.fr,theme:'Mes ajouts',custom:true})); }
+function allTerms(){ return DATA.terms.concat(customTerms()); }
+function findTerm(en){ const k=en.toLowerCase(); return allTerms().find(t=>t.en.toLowerCase()===k)||{en:en,fr:'',theme:''}; }
 
 /* ================= HELPERS UI ================= */
 function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
@@ -292,7 +299,7 @@ function dash(){
       </div>
       <div style="background:#fff;border-radius:22px;overflow:hidden">
         ${due===0?`<div style="padding:26px 18px;font-size:14px;color:#6B7192;text-align:center">Rien à réviser pour l'instant.<br>Marque des termes « à revoir » dans Vocabulaire.</div>`
-          :dueCards().slice(0,4).map(en=>{const c=S.cards[en];const term=DATA.terms.find(t=>t.en.toLowerCase()===en.toLowerCase());return `<div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #F1F1F8"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">${esc(en)}</div><div style="font-size:12.5px;color:#6B7192">${term?esc(term.fr).slice(0,40):'vu '+c.seen+' fois'}</div></div><div class="mono" style="font-size:10.5px;color:#B4462C">BOÎTE ${c.box}</div></div>`;}).join('')
+          :dueCards().slice(0,4).map(en=>{const c=S.cards[en];const term=findTerm(en);return `<div style="display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #F1F1F8"><div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:700">${esc(en)}</div><div style="font-size:12.5px;color:#6B7192">${term.fr?esc(term.fr).slice(0,40):'vu '+c.seen+' fois'}</div></div><div class="mono" style="font-size:10.5px;color:#B4462C">BOÎTE ${c.box}</div></div>`;}).join('')
           +(due>4?`<div style="padding:16px 18px;font-size:13px;color:#6B7192">+ ${due-4} autres cartes dues</div>`:'')}
       </div>
     </div>
@@ -434,33 +441,44 @@ function gram(){
 /* ================= VUE : VOCABULAIRE ================= */
 let VOCAB_THEME='__lot__';
 function vocab(){
-  const themes=[...new Set(DATA.terms.map(t=>t.theme))];
+  const AT=allTerms();
+  const themes=[...new Set(AT.map(t=>t.theme))];
   let list;
   if(VOCAB_THEME==='__lot__') list=dailyLot();
-  else list=DATA.terms.filter(t=>t.theme===VOCAB_THEME);
+  else list=AT.filter(t=>t.theme===VOCAB_THEME);
   const master=list.filter(t=>S.vocab[t.en.toLowerCase()]&&S.vocab[t.en.toLowerCase()].mastered).length;
-  const chips=[['__lot__','Lot du jour'],...themes.map(t=>[t,t])].map(([v,label])=>
+  const chips=[['__lot__','Lot du jour'],['Mes ajouts','★ Mes ajouts ('+(S.custom||[]).length+')'],...themes.filter(t=>t!=='Mes ajouts').map(t=>[t,t])].map(([v,label])=>
     `<div class="clk" data-act="vtheme" data-theme="${esc(v)}" style="padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700;white-space:nowrap;background:${VOCAB_THEME===v?'#1B2138':'#EDEDF6'};color:${VOCAB_THEME===v?'#F7F7FC':'#5C6280'}">${esc(label)}</div>`).join('');
-  const cards=list.map(t=>{
+  const form=`<div style="background:#fff;border-radius:20px;padding:18px 20px;margin-bottom:16px">
+    <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:12px">AJOUTER MON PROPRE VOCABULAIRE → CRÉE UNE CARTE MÉMO</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <input id="cv_en" class="fld" placeholder="Mot ou expression en anglais" style="flex:1 1 220px">
+      <input id="cv_fr" class="fld" placeholder="Traduction en français" style="flex:1 1 220px">
+      <div class="clk" data-act="addcustom" style="padding:13px 22px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:14.5px;white-space:nowrap">Ajouter à mes cartes</div>
+    </div>
+  </div>`;
+  const cards=list.length? list.map(t=>{
     const key=t.en.toLowerCase(); const st=S.vocab[key]||{}; const mastered=st.mastered;
     return `<div style="background:#fff;border-radius:24px;padding:24px 26px;display:flex;gap:26px;align-items:center;flex-wrap:wrap">
       <div style="flex:1 1 220px;min-width:0">
         <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:5px">
           <div class="serif" style="font-size:24px">${esc(t.en)}</div>
           <div class="clk" data-act="speak" data-text="${esc(t.en)}" style="font-size:16px;color:#5B3BD4">♪</div>
+          ${t.custom?'<span class="mono" style="font-size:10px;color:#5B3BD4;background:#E9E4FB;padding:3px 7px;border-radius:999px">PERSO</span>':''}
         </div>
         <div style="font-size:14.5px;color:#5C6280">${esc(t.fr)}</div>
       </div>
       <div style="flex:0 0 auto;display:flex;gap:9px;flex-wrap:wrap">
         <div class="clk" data-act="vmaster" data-en="${esc(t.en)}" style="padding:12px 19px;border-radius:999px;${mastered?'background:#0F6E50;color:#fff':'border:1px solid #DCDCEB;color:#5C6280'};font-size:13.5px;font-weight:700">${mastered?'✓ Maîtrisé':'Maîtrisé'}</div>
         <div class="clk" data-act="vreview" data-en="${esc(t.en)}" style="padding:12px 19px;border-radius:999px;background:#FBE5DF;color:#B4462C;font-size:13.5px;font-weight:700">À revoir</div>
+        ${t.custom?`<div class="clk" data-act="delcustom" data-en="${esc(t.en)}" style="padding:12px 15px;border-radius:999px;border:1px solid #E6D6F0;color:#8A5A12;font-size:13.5px;font-weight:700" title="Supprimer">✕</div>`:''}
       </div>
     </div>`;
-  }).join('');
+  }).join('') : `<div style="background:#fff;border-radius:24px;padding:30px;text-align:center;color:#6B7192;font-size:14.5px">${VOCAB_THEME==='Mes ajouts'?'Ajoute ton premier mot avec le formulaire ci-dessus.':'Aucun terme dans ce thème.'}</div>`;
   return `<div style="padding:34px">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:18px">
       <div>
-        <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">VOCABULAIRE PO · ${DATA.terms.length} TERMES</div>
+        <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">VOCABULAIRE PO · ${DATA.terms.length} TERMES + ${(S.custom||[]).length} PERSO</div>
         <h1 class="serif" style="font-size:44px;line-height:1.05;margin:0;font-weight:400">Vocabulaire <span style="font-style:italic">Product Owner</span></h1>
       </div>
       <div style="min-width:230px">
@@ -469,6 +487,7 @@ function vocab(){
       </div>
     </div>
     <div style="display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;margin-bottom:6px">${chips}</div>
+    ${form}
     <div style="display:flex;flex-direction:column;gap:12px">${cards}</div>
     <div style="margin-top:16px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:#E9E4FB;border-radius:24px;padding:22px 26px">
       <div style="flex:1;min-width:230px;font-size:14.5px;line-height:1.6;color:#432BA4">Les termes marqués « à revoir » alimentent tes cartes mémo (répétition espacée). « Maîtrisé » les espace davantage.</div>
@@ -492,7 +511,7 @@ function cards(){
     </div>`;
   }
   const idx=UI.cardIdx%due.length;
-  const en=due[idx]; const term=DATA.terms.find(t=>t.en.toLowerCase()===en.toLowerCase())||{en:en,fr:'',theme:''};
+  const en=due[idx]; const term=findTerm(en);
   const c=S.cards[en];
   const example=DATA.phrases.find(p=>p.en.toLowerCase().includes(en.toLowerCase().replace(/^to /,'')));
   const done=due.length; const pos=idx+1;
@@ -727,6 +746,22 @@ document.addEventListener('click',(e)=>{
     case 'qnext': UI.quiz.i=(UI.quiz.i+1)%QUIZ.length; UI.quiz.pick=null; render(); break;
     case 'qskip': UI.quiz.i=(UI.quiz.i+1)%QUIZ.length; UI.quiz.pick=null; render(); break;
     case 'vtheme': VOCAB_THEME=el.dataset.theme; render(); break;
+    case 'addcustom': {
+      const enI=document.getElementById('cv_en'), frI=document.getElementById('cv_fr');
+      const en=(enI&&enI.value||'').trim(), fr=(frI&&frI.value||'').trim();
+      if(!en||!fr){ toast('Remplis l\'anglais et le français'); break; }
+      const k=en.toLowerCase();
+      if((S.custom||[]).some(c=>c.en.toLowerCase()===k) || DATA.terms.some(t=>t.en.toLowerCase()===k)){ toast('Ce mot est déjà dans tes cartes'); break; }
+      S.custom.push({en:en,fr:fr,ts:Date.now()});
+      S.vocab[k]={mastered:false,seen:0}; ensureCard(k); S.cards[k].due=Date.now();
+      VOCAB_THEME='Mes ajouts'; recordActivity(); toast('« '+en+' » ajouté à tes cartes'); render(); break;
+    }
+    case 'delcustom': {
+      const en=el.dataset.en, k=en.toLowerCase();
+      if(!confirm('Supprimer « '+en+' » de ton vocabulaire et de tes cartes ?')) break;
+      S.custom=(S.custom||[]).filter(c=>c.en.toLowerCase()!==k);
+      delete S.vocab[k]; delete S.cards[k]; save(); render(); break;
+    }
     case 'vmaster': { const en=el.dataset.en, k=en.toLowerCase(); const st=S.vocab[k]||{mastered:false,seen:0};
       st.mastered=!st.mastered; st.seen=(st.seen||0)+1; S.vocab[k]=st; ensureCard(k);
       if(st.mastered){ const c=S.cards[k]; c.box=Math.min(c.box+1,INTERVALS.length-1); c.due=Date.now()+INTERVALS[c.box]*DAY; }
@@ -762,8 +797,8 @@ document.addEventListener('change',(e)=>{
 /* ================= EXPORT CSV ================= */
 function exportCSV(){
   const rows=[['type','en','fr','maitrise','boite','vu','echecs']];
-  DATA.terms.forEach(t=>{ const k=t.en.toLowerCase(); const v=S.vocab[k]||{}; const c=S.cards[k]||{};
-    rows.push(['vocab',t.en,t.fr,v.mastered?'oui':'non',c.box??'',c.seen??'',c.fails??'']); });
+  allTerms().forEach(t=>{ const k=t.en.toLowerCase(); const v=S.vocab[k]||{}; const c=S.cards[k]||{};
+    rows.push([t.custom?'perso':'vocab',t.en,t.fr,v.mastered?'oui':'non',c.box??'',c.seen??'',c.fails??'']); });
   rows.push(['quiz','present perfect vs past simple','', S.quiz.correct+'/'+S.quiz.answered,'','','']);
   const csv=rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});

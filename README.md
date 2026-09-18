@@ -19,6 +19,9 @@ roadmap, incident, feedback, rituels agiles, etc.).
   crée une carte de rattrapage.
 - **Vocabulaire** : les 158 termes navigables par thème + un « lot du jour » tournant.
   Prononciation audio (♪), « maîtrisé » et « à revoir » alimentent les cartes.
+  **Ajout perso** : un formulaire (anglais + français) crée directement une carte mémo ;
+  tes mots apparaissent dans le thème « ★ Mes ajouts », entrent dans la révision espacée,
+  ont la prononciation (♪) pour t'entraîner à les dire, et sont exportés dans le CSV.
 - **Cartes mémo** : vraie répétition espacée (boîtes de Leitner, intervalles 1, 2, 4, 9, 20
   jours), cartes dues du jour, prononciation, répartition par boîte.
 - **Oral** : la phrase de référence est lue à voix haute, tu t'enregistres au micro, et sur
