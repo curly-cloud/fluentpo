@@ -27,6 +27,11 @@ roadmap, incident, feedback, rituels agiles, etc.).
 - **Oral** : la phrase de référence est lue à voix haute, tu t'enregistres au micro, et sur
   Chrome la **reconnaissance vocale** transcrit ta phrase et calcule un score de prononciation
   (repli : enregistrement + réécoute sur les autres navigateurs).
+- **Écrit** : deux onglets. **Traduction** FR↔EN (phrases de l'ebook) avec correction par
+  comparaison mot à mot à une traduction de référence (diff surligné vert/rouge, mots manquants
+  et en trop, score de proximité, audio). **Rédaction** : sujets PO concrets avec expressions
+  cibles à réutiliser, checklist des expressions employées et corrigé modèle à comparer.
+  Correction hors-ligne, sans IA ni compte (proximité à une réponse-modèle, pas une note absolue).
 - **Réglages** : interrupteurs persistants, heure de rappel modifiable, objectifs B2/C1
   éditables, **export CSV** de ta progression, réinitialisation.
 

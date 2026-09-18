@@ -21,6 +21,8 @@
   input.time:focus { outline:none; }
   input.fld { font-family:'DM Sans',sans-serif; font-size:15px; padding:12px 14px; border:1px solid #DCDCEB; border-radius:12px; background:#F7F7FC; color:#1B2138; min-width:0; }
   input.fld:focus { outline:none; border-color:#5B3BD4; background:#fff; }
+  textarea.ta { font-family:'DM Sans',sans-serif; font-size:16px; line-height:1.5; padding:16px 18px; border:1px solid #DCDCEB; border-radius:16px; background:#F7F7FC; color:#1B2138; width:100%; min-height:120px; resize:vertical; }
+  textarea.ta:focus { outline:none; border-color:#5B3BD4; background:#fff; }
   @keyframes pulseRec { 0%{box-shadow:0 0 0 0 rgba(228,87,61,.35)} 70%{box-shadow:0 0 0 18px rgba(228,87,61,0)} 100%{box-shadow:0 0 0 0 rgba(228,87,61,0)} }
   @keyframes fadein { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
   #toast { position:fixed; left:50%; bottom:28px; transform:translateX(-50%); background:#1B2138; color:#F7F7FC; padding:13px 22px; border-radius:999px; font-size:14px; font-weight:700; box-shadow:0 16px 30px -18px rgba(27,33,56,.7); z-index:9999; animation:fadein .2s ease; }
@@ -44,6 +46,25 @@ const QUIZ = [
   { q:'We ____ that risk already.', opts:['mitigated','have mitigated'], correct:1, exp:'« already » → present perfect.' },
   { q:'The velocity ____ last sprint, so we investigated.', opts:['dropped','has dropped'], correct:0, exp:'« last sprint » terminé → past simple.' },
   { q:'We ____ our Q3 milestone two weeks early.', opts:['hit','have hit'], correct:0, exp:'Événement daté et achevé → past simple.' }
+];
+
+/* Sujets d'expression écrite (contexte PO) avec expressions cibles + corrigé modèle */
+const WRITING = [
+  { title:'Point de sprint', instruction:'Rédige un point de sprint en 3 phrases : ce qui a été livré, ce qui a glissé, et pourquoi.',
+    targets:['shipped','slipped','descope','trade-off'],
+    model:'This sprint we shipped the checkout redesign and the new onboarding flow. The analytics dashboard slipped because we had to descope it to protect the release date. The trade-off was clear: we prioritised the revenue-critical work first.' },
+  { title:'Dire non à une demande', instruction:"Réponds à une demande hors-roadmap : reconnais la demande, explique la contrainte, propose une alternative.",
+    targets:['push back','business impact','deprioritise','revisit'],
+    model:"I hear you, and I understand this feels urgent. Help me understand the business impact if we don't do this now. If we pull it in, something else has to come out, so I'd push back for now and suggest we revisit it in the next planning session and deprioritise it." },
+  { title:'Blocage en standup', instruction:'Décris en 2 phrases un point bloquant et ce dont tu as besoin pour avancer.',
+    targets:['blocker','dependency','unblock'],
+    model:"I'm blocked on the payment integration because we have a dependency on the data team. I need thirty minutes with them today to unblock it." },
+  { title:'Ouvrir une roadmap', instruction:'Ouvre une présentation de roadmap en annonçant clairement tes hypothèses.',
+    targets:['working assumption','subject to change','on our radar','committed'],
+    model:"Before we start, I want to flag some assumptions upfront. These items are working assumptions and are subject to change as we learn. A few things are on our radar but not committed yet." },
+  { title:'Postmortem d\'incident', instruction:"Résume un incident : ce qui s'est passé, l'impact, la cause racine, les actions correctives.",
+    targets:['blast radius','root cause','rollback','action items'],
+    model:"Here is what happened: a bad deploy took checkout down for twenty minutes. The blast radius was limited to EU users. The root cause was a missing migration, which we fixed with a rollback. Action items: add a migration check to CI and improve our alerting." }
 ];
 
 /* Lecture de la leçon du jour */
@@ -76,8 +97,10 @@ function load(){
   s.quiz=s.quiz||{answered:0,correct:0};
   s.oral=s.oral||{};          // idx -> best score
   s.minutes=s.minutes||{};    // 'YYYY-MM' -> seconds
-  s.program=s.program||{day:'',lesson:false,gram:false,vocab:false,oral:false};
+  s.program=s.program||{day:'',lesson:false,gram:false,vocab:false,oral:false,ecrit:false};
   s.custom=s.custom||[];       // vocabulaire ajouté par l'utilisateur {en, fr, ts}
+  s.trad=s.trad||{answered:0,sum:0};   // stats traduction
+  s.redac=s.redac||{done:0};           // rédactions vérifiées
   s.settings=Object.assign({reminderTime:'12:00',reminderOn:true,relanceOn:true,streakAlert:false,
     accent:'en-GB',priority:'Élevée',b2:68,c1:24}, s.settings||{});
   return s;
@@ -86,7 +109,7 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} 
 let S=load();
 
 /* reset du programme chaque jour */
-if(S.program.day!==todayStr()){ S.program={day:todayStr(),lesson:false,gram:false,vocab:false,oral:false}; save(); }
+if(S.program.day!==todayStr()){ S.program={day:todayStr(),lesson:false,gram:false,vocab:false,oral:false,ecrit:false}; save(); }
 
 /* série + activité */
 function recordActivity(){
@@ -165,10 +188,12 @@ function fmtHM(sec){ const m=Math.round(sec/60); return (m>=60?Math.floor(m/60)+
 
 /* ================= ÉTAT UI (non persistant) ================= */
 const UI={ view:'dash', tab:'text', flipped:false, quiz:{i:0,pick:null}, rate:1,
-  audioPlaying:false, cardIdx:0, oralIdx:0, rec:{state:'idle', transcript:'', score:null, url:null} };
+  audioPlaying:false, cardIdx:0, oralIdx:0, rec:{state:'idle', transcript:'', score:null, url:null},
+  ecritTab:'trad', tradDir:'fr2en', tradIdx:0, tradChecked:false, tradAnswer:'',
+  redacIdx:0, redacChecked:false, redacAnswer:'' };
 
 /* ================= NAV + SHELL ================= */
-const NAV=[['dash','Suivi'],['lesson','Leçon'],['gram','Grammaire'],['vocab','Vocabulaire'],['cards','Cartes'],['oral','Oral'],['settings','Réglages']];
+const NAV=[['dash','Suivi'],['lesson','Leçon'],['gram','Grammaire'],['vocab','Vocabulaire'],['cards','Cartes'],['oral','Oral'],['ecrit','Écrit'],['settings','Réglages']];
 function nav(){
   const items=NAV.map(([v,label])=>{
     const on=UI.view===v;
@@ -212,7 +237,7 @@ function streakGrid(){
 function dash(){
   const master=Object.values(S.vocab).filter(v=>v.mastered).length;
   const due=dueCards().length;
-  const P=S.program, doneCount=[P.lesson,P.gram,P.vocab,P.oral].filter(Boolean).length;
+  const P=S.program, doneCount=[P.lesson,P.gram,P.vocab,P.oral,P.ecrit].filter(Boolean).length;
   const seenExpr=Object.keys(S.vocab).length;
   const mo=todayStr().slice(0,7); const monthMin=fmtHM(S.minutes[mo]||0);
   // assiduité 30 j
@@ -283,13 +308,14 @@ function dash(){
     <div style="flex:1 1 420px;min-width:0">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#6B7192">PROGRAMME D'AUJOURD'HUI</div>
-        <div class="mono" style="font-size:11px;color:#0F6E50">${doneCount} / 4 FAIT</div>
+        <div class="mono" style="font-size:11px;color:#0F6E50">${doneCount} / 5 FAIT</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
         ${progItem('01','#5B3BD4','#E9E4FB','Leçon · Stakeholder management','Texte et audio — 8 min',P.lesson,'lesson')}
         ${progItem('02','#0F6E50','#E4F5EE','Grammaire · Present perfect vs past simple','Règle + '+QUIZ.length+' questions — 5 min',P.gram,'gram')}
         ${progItem('03','#0F6E50','#E4F5EE','Vocabulaire PO · lot du jour','6 termes en contexte produit — 4 min',P.vocab,'vocab')}
         ${progItem('04','#9A6413','#FDF0DC','Pratique orale · phrases PO','8 phrases à répéter — 8 min',P.oral,'oral')}
+        ${progItem('05','#432BA4','#E9E4FB','Écrit · traduction &amp; rédaction','Traduire une phrase + un sujet — 5 min',P.ecrit,'ecrit')}
       </div>
     </div>
     <div style="flex:1 1 300px;min-width:0">
@@ -665,8 +691,119 @@ function settings(){
   </div>`;
 }
 
+/* ================= VUE : ÉCRIT (traduction + rédaction) ================= */
+function chip(w,color,bg){ return `<span class="mono" style="font-size:12px;color:${color};background:${bg};padding:5px 10px;border-radius:999px;display:inline-block;margin:2px 3px">${esc(w)}</span>`; }
+function tradBody(){
+  const P=DATA.phrases; const idx=UI.tradIdx%P.length; const pair=P[idx]; const dir=UI.tradDir;
+  const source = dir==='fr2en'? pair.fr : pair.en;
+  const reference = dir==='fr2en'? pair.en : pair.fr;
+  const english = dir==='fr2en'? reference : source;
+  const srcLabel = dir==='fr2en'? 'TRADUIS EN ANGLAIS' : 'TRADUIS EN FRANÇAIS';
+  let correction='';
+  if(UI.tradChecked){
+    const d=diffWords(reference, UI.tradAnswer);
+    const col=d.score>=85?'#189E74':d.score>=60?'#9A6413':'#B4462C';
+    correction=`<div style="background:#fff;border-radius:26px;padding:28px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#6B7192">CORRECTION · TRADUCTION DE RÉFÉRENCE</div>
+        <div style="display:flex;align-items:baseline;gap:5px"><span class="serif" style="font-size:30px;color:${col}">${d.score}</span><span class="mono" style="font-size:11px;color:#6B7192">/100 de proximité</span></div>
+      </div>
+      <div style="font-size:18px;line-height:1.7;margin-bottom:8px">${d.html}</div>
+      ${d.missing.length?`<div style="margin-top:12px;font-size:13px;color:#6B7192">Mots de la référence que tu n'as pas repris : ${d.missing.slice(0,14).map(w=>chip(w,'#B4462C','#FBE5DF')).join('')}</div>`:''}
+      ${d.extra.length?`<div style="margin-top:8px;font-size:13px;color:#6B7192">Tes mots hors référence (à vérifier ou synonymes) : ${d.extra.slice(0,14).map(w=>chip(w,'#5C6280','#EDEDF6')).join('')}</div>`:''}
+      <div style="margin-top:16px;padding-top:14px;border-top:1px solid #F1F1F8;font-size:14px;color:#5C6280;line-height:1.6">Ta réponse : « ${esc(UI.tradAnswer)||'(vide)'} »<br>${d.score>=85?'Excellent, très proche de la référence.':d.score>=60?'Bien. Compare les mots soulignés et réessaie.':'À retravailler : reprends les mots surlignés en rouge.'} <span style="color:#9A7B63">La note mesure la proximité avec une traduction possible, pas la seule bonne réponse.</span></div>
+    </div>`;
+  }
+  return `<div style="display:flex;gap:20px;flex-wrap:wrap">
+    <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border-radius:26px;padding:30px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#5B3BD4">${srcLabel} · ${idx+1}/${P.length}</div>
+          <div class="clk mono" data-act="traddir" style="font-size:11px;color:#5C6280;background:#EDEDF6;padding:7px 12px;border-radius:999px">↔ ${dir==='fr2en'?'FR → EN':'EN → FR'}</div>
+        </div>
+        <div class="serif" style="font-size:26px;line-height:1.35;margin-bottom:18px">${esc(source)}</div>
+        <textarea id="trad_answer" class="ta" placeholder="Écris ta traduction ici…">${esc(UI.tradAnswer)}</textarea>
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+          <div class="clk" data-act="tradcheck" style="flex:1;min-width:140px;text-align:center;padding:15px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:15px">Corriger</div>
+          <div class="clk" data-act="speak" data-text="${esc(english)}" style="padding:15px 20px;border-radius:999px;border:1px solid #DCDCEB;color:#5C6280;font-weight:700;font-size:15px">♪ Écouter</div>
+          <div class="clk" data-act="tradnext" style="padding:15px 20px;border-radius:999px;border:1px solid #DCDCEB;color:#5C6280;font-weight:700;font-size:15px">Phrase suivante</div>
+        </div>
+      </div>
+      ${correction}
+    </div>
+    <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:14px">
+      <div style="background:#1B2138;border-radius:26px;padding:26px;color:#F7F7FC">
+        <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#A9B0CF;margin-bottom:12px">TES TRADUCTIONS</div>
+        <div style="display:flex;align-items:baseline;gap:10px"><span class="serif" style="font-size:40px">${S.trad.answered}</span><span style="font-size:13px;color:#A9B0CF">phrases corrigées</span></div>
+        <div style="margin-top:8px;font-size:14px;color:#C3C9E4">Proximité moyenne : <strong style="color:#4ED8A0">${S.trad.answered?Math.round(S.trad.sum/S.trad.answered):0}/100</strong></div>
+      </div>
+      <div style="background:#fff;border-radius:24px;padding:22px;font-size:14.5px;line-height:1.6;color:#5C6280">Astuce : traduis d'abord sans regarder, puis clique « Corriger » pour comparer mot à mot à une traduction de référence tirée de ton ebook PO. Écoute la version anglaise pour l'oral.</div>
+    </div>
+  </div>`;
+}
+function redacBody(){
+  const W=WRITING; const idx=UI.redacIdx%W.length; const p=W[idx];
+  let correction='';
+  if(UI.redacChecked){
+    const ans=UI.redacAnswer.toLowerCase();
+    const used=p.targets.map(t=>({t, ok: ans.includes(t.toLowerCase())}));
+    const okCount=used.filter(u=>u.ok).length;
+    const words=UI.redacAnswer.trim()?UI.redacAnswer.trim().split(/\s+/).length:0;
+    correction=`<div style="background:#fff;border-radius:26px;padding:28px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+        <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#6B7192">EXPRESSIONS CIBLES UTILISÉES</div>
+        <div class="mono" style="font-size:12px;color:#0F6E50">${okCount}/${p.targets.length} · ${words} mots</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:20px">${used.map(u=>u.ok?chip('✓ '+u.t,'#fff','#0F6E50'):chip('○ '+u.t,'#B4462C','#FBE5DF')).join('')}</div>
+      <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#5B3BD4;margin-bottom:10px">CORRIGÉ MODÈLE — COMPARE AVEC TON TEXTE</div>
+      <div style="font-size:16.5px;line-height:1.7;background:#F7F7FC;border-radius:16px;padding:18px">${esc(p.model)}</div>
+      <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+        <div class="clk" data-act="speak" data-text="${esc(p.model)}" style="padding:13px 20px;border-radius:999px;border:1px solid #DCDCEB;color:#5C6280;font-weight:700;font-size:14.5px">♪ Écouter le modèle</div>
+        <div class="clk" data-act="redacnext" style="padding:13px 20px;border-radius:999px;background:#0F6E50;color:#fff;font-weight:700;font-size:14.5px">Autre sujet</div>
+      </div>
+    </div>`;
+  }
+  return `<div style="display:flex;gap:20px;flex-wrap:wrap">
+    <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border-radius:26px;padding:30px">
+        <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#5B3BD4;margin-bottom:10px">SUJET ${idx+1}/${W.length} · ${esc(p.title.toUpperCase())}</div>
+        <div style="font-size:19px;line-height:1.5;margin-bottom:14px">${esc(p.instruction)}</div>
+        <div style="font-size:13px;color:#6B7192;margin-bottom:6px">Réutilise si possible :</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:18px">${p.targets.map(t=>chip(t,'#432BA4','#E9E4FB')).join('')}</div>
+        <textarea id="redac_answer" class="ta" placeholder="Rédige ta réponse en anglais…" style="min-height:150px">${esc(UI.redacAnswer)}</textarea>
+        <div style="display:flex;gap:10px;margin-top:14px;flex-wrap:wrap">
+          <div class="clk" data-act="redaccheck" style="flex:1;min-width:140px;text-align:center;padding:15px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:15px">Vérifier &amp; voir le corrigé</div>
+          <div class="clk" data-act="redacnext" style="padding:15px 20px;border-radius:999px;border:1px solid #DCDCEB;color:#5C6280;font-weight:700;font-size:15px">Autre sujet</div>
+        </div>
+      </div>
+      ${correction}
+    </div>
+    <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:14px">
+      <div style="background:#1B2138;border-radius:26px;padding:26px;color:#F7F7FC">
+        <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#A9B0CF;margin-bottom:12px">TES RÉDACTIONS</div>
+        <div style="display:flex;align-items:baseline;gap:10px"><span class="serif" style="font-size:40px">${S.redac.done}</span><span style="font-size:13px;color:#A9B0CF">sujets travaillés</span></div>
+      </div>
+      <div style="background:#E9E4FB;border-radius:24px;padding:22px;font-size:14.5px;line-height:1.6;color:#432BA4">Écris d'abord ta version, puis compare-la au corrigé modèle. Vise à replacer naturellement les expressions cibles dans un texte fluide, pas à recopier le modèle.</div>
+    </div>
+  </div>`;
+}
+function ecrit(){
+  const tab=UI.ecritTab;
+  const tb=(k,label)=>`<div class="clk" data-act="ecrittab" data-tab="${k}" style="padding:11px 24px;border-radius:999px;font-size:14px;font-weight:700;background:${tab===k?'#1B2138':'transparent'};color:${tab===k?'#F7F7FC':'#5C6280'}">${label}</div>`;
+  return `<div style="padding:34px">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:24px">
+      <div>
+        <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">EXPRESSION ÉCRITE · CORRECTION PAR RÉPONSE-MODÈLE</div>
+        <h1 class="serif" style="font-size:44px;line-height:1.05;margin:0;font-weight:400">Écris <span style="font-style:italic">en anglais</span></h1>
+      </div>
+      <div style="display:flex;gap:6px;background:#EDEDF6;padding:5px;border-radius:999px">${tb('trad','Traduction')}${tb('redac','Rédaction')}</div>
+    </div>
+    ${tab==='trad'?tradBody():redacBody()}
+  </div>`;
+}
+
 /* ================= MOUNT + RENDER ================= */
-const VIEWS={dash,lesson,gram,vocab,cards,oral,settings};
+const VIEWS={dash,lesson,gram,vocab,cards,oral,ecrit,settings};
 function render(){
   const app=document.getElementById('app');
   app.innerHTML=`<div style="padding:30px 30px 46px;min-height:100vh">
@@ -684,6 +821,24 @@ function stopAudio(){ if(window.speechSynthesis) speechSynthesis.cancel(); UI.au
 /* ================= MICRO / RECONNAISSANCE VOCALE ================= */
 let mediaRec=null, mediaChunks=[], sr=null;
 function normalize(s){ return s.toLowerCase().replace(/[^a-z0-9' ]/g,' ').split(/\s+/).filter(Boolean); }
+/* diff mot à mot entre une réponse et une référence */
+function tok(t){ return t.toLowerCase().replace(/[^a-z0-9']/g,''); } // hyphens/punctuation retirés
+function diffWords(reference, answer){
+  const refTokens=reference.split(/\s+/).filter(Boolean);
+  const ansBag={}; answer.split(/\s+/).forEach(t=>{ const w=tok(t); if(w) ansBag[w]=(ansBag[w]||0)+1; });
+  let matched=0, refCount=0; const missing=[];
+  const html=refTokens.map(t=>{
+    const w=tok(t);
+    if(!w) return `<span style="color:#5C6280">${esc(t)}</span>`;        // ponctuation
+    refCount++;
+    if(ansBag[w]>0){ ansBag[w]--; matched++; return `<span style="color:#0F6E50">${esc(t)}</span>`; }
+    missing.push(w);
+    return `<span style="color:#B4462C;text-decoration:underline;text-decoration-style:wavy">${esc(t)}</span>`;
+  }).join(' ');
+  const extra=Object.keys(ansBag).filter(w=>ansBag[w]>0);
+  const score=refCount?Math.round(matched/refCount*100):0;
+  return {html, score, missing, extra};
+}
 function scoreMatch(target,said){
   const a=normalize(target), b=normalize(said); if(!a.length) return 0;
   const bag={}; b.forEach(w=>bag[w]=(bag[w]||0)+1); let hit=0;
@@ -728,7 +883,7 @@ document.addEventListener('click',(e)=>{
   const act=el.dataset.act;
   switch(act){
     case 'view': stopAudio(); UI.view=el.dataset.view; if(UI.view!=='cards')UI.flipped=false; render(); break;
-    case 'start': { stopAudio(); const P=S.program; UI.view=!P.lesson?'lesson':!P.gram?'gram':!P.vocab?'vocab':!P.oral?'oral':'cards'; render(); break; }
+    case 'start': { stopAudio(); const P=S.program; UI.view=!P.lesson?'lesson':!P.gram?'gram':!P.vocab?'vocab':!P.oral?'oral':!P.ecrit?'ecrit':'cards'; render(); break; }
     case 'speak': speak(el.dataset.text); break;
     case 'ltab': UI.tab=el.dataset.tab; stopAudio(); render(); break;
     case 'rate': UI.rate=parseFloat(el.dataset.rate); render(); break;
@@ -777,6 +932,24 @@ document.addEventListener('click',(e)=>{
       break;
     case 'oretry': UI.rec={state:'idle',transcript:'',score:null,url:null}; render(); break;
     case 'onext': UI.oralIdx++; UI.rec={state:'idle',transcript:'',score:null,url:null}; render(); break;
+    case 'ecrittab': UI.ecritTab=el.dataset.tab; render(); break;
+    case 'traddir': UI.tradDir=UI.tradDir==='fr2en'?'en2fr':'fr2en'; UI.tradChecked=false; UI.tradAnswer=''; render(); break;
+    case 'tradcheck': {
+      const ta=document.getElementById('trad_answer'); const val=(ta&&ta.value||'').trim();
+      if(!val){ toast('Écris ta traduction d\'abord'); break; }
+      UI.tradAnswer=val; UI.tradChecked=true;
+      const P=DATA.phrases; const pair=P[UI.tradIdx%P.length];
+      const reference=UI.tradDir==='fr2en'?pair.en:pair.fr;
+      const d=diffWords(reference,val); S.trad.answered++; S.trad.sum+=d.score;
+      S.program.ecrit=true; recordActivity(); render(); break;
+    }
+    case 'tradnext': UI.tradIdx++; UI.tradChecked=false; UI.tradAnswer=''; render(); break;
+    case 'redaccheck': {
+      const ta=document.getElementById('redac_answer'); const val=(ta&&ta.value||'').trim();
+      if(!val){ toast('Rédige ta réponse d\'abord'); break; }
+      UI.redacAnswer=val; UI.redacChecked=true; S.redac.done++; S.program.ecrit=true; recordActivity(); render(); break;
+    }
+    case 'redacnext': UI.redacIdx++; UI.redacChecked=false; UI.redacAnswer=''; render(); break;
     case 'toggle': { const k=el.dataset.key; S.settings[k]=!S.settings[k]; save(); render(); break; }
     case 'cycle': { const k=el.dataset.key;
       if(k==='accent'){ S.settings.accent=S.settings.accent==='en-GB'?'en-US':'en-GB'; }
