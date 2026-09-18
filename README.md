@@ -1,66 +1,60 @@
 # FluentPO
 
-Application web d'apprentissage de l'anglais **orientée Product Owner**. Objectif : passer
-d'un niveau B2 solide à un niveau C1 en s'appuyant sur du vocabulaire produit réel (agilité,
-delivery, stakeholders), 25 minutes par jour.
+Outil quotidien d'apprentissage de l'anglais **pour Product Owner**. Objectif : B2 solide puis
+C1, avec du vocabulaire produit réel, 25 minutes par jour. Page unique, autonome, sans build.
+Ta progression est sauvegardée localement (localStorage) d'un jour à l'autre.
 
-Page unique, autonome, sans build ni dépendance : il suffit d'ouvrir `index.html`.
+Base de contenu : **158 termes** et **44 phrases** extraits de l'ebook « L'anglais du Product
+Owner » (Le Cercle des Langues), classés par thème (parties prenantes, produit, delivery,
+roadmap, incident, feedback, rituels agiles, etc.).
 
-## Aperçu
+## Fonctionnalités (tout est réel, rien de décoratif)
 
-Sept vues accessibles depuis la barre de navigation, toutes interactives :
-
-| Vue | Contenu |
-|-----|---------|
-| **Suivi** | Tableau de bord : jalons B2/C1, série de régularité, programme du jour, révisions |
-| **Leçon** | Lecture, audio et vidéo (onglets), expressions à envoyer en cartes mémo |
-| **Grammaire** | Règle du jour + quiz avec feedback immédiat (present perfect vs past simple) |
-| **Vocabulaire** | Termes PO en contexte, bascule « maîtrisé » qui met à jour la progression |
-| **Cartes** | Cartes mémo recto/verso à retourner, répétition espacée |
-| **Oral** | Répétition de phrases, enregistrement et comparaison de prononciation |
-| **Réglages** | Rappel quotidien, objectifs B2/C1, préférences |
+- **Suivi** : série de jours réelle, grille d'activité des 48 derniers jours, assiduité sur
+  30 jours, temps passé dans le mois, programme du jour qui reflète ce que tu as vraiment fait.
+- **Leçon** : lecture avec mots cliquables (ajout aux cartes), onglet **Audio** qui lit le texte
+  en synthèse vocale (accent britannique, vitesse réglable), onglet **En contexte** avec phrases
+  audio.
+- **Grammaire** : quiz present perfect / past simple, score persistant, explications, une erreur
+  crée une carte de rattrapage.
+- **Vocabulaire** : les 158 termes navigables par thème + un « lot du jour » tournant.
+  Prononciation audio (♪), « maîtrisé » et « à revoir » alimentent les cartes.
+- **Cartes mémo** : vraie répétition espacée (boîtes de Leitner, intervalles 1, 2, 4, 9, 20
+  jours), cartes dues du jour, prononciation, répartition par boîte.
+- **Oral** : la phrase de référence est lue à voix haute, tu t'enregistres au micro, et sur
+  Chrome la **reconnaissance vocale** transcrit ta phrase et calcule un score de prononciation
+  (repli : enregistrement + réécoute sur les autres navigateurs).
+- **Réglages** : interrupteurs persistants, heure de rappel modifiable, objectifs B2/C1
+  éditables, **export CSV** de ta progression, réinitialisation.
 
 ## Lancer
-
-Les images sont chargées en chemins relatifs depuis `assets/`. Le plus simple :
 
 ```bash
 python3 -m http.server 8777
 ```
 
-Puis ouvrir http://localhost:8777/index.html
+Puis ouvrir http://localhost:8777/index.html (ou directement `index.html`).
 
-Ouvrir directement `index.html` en `file://` fonctionne aussi (JS et images inclus).
+## Compatibilité
+
+- Synthèse vocale (prononciation, audio de leçon) : tous les navigateurs modernes.
+- Reconnaissance vocale + score à l'oral : Chrome / Edge (autoriser le micro). Ailleurs, l'oral
+  bascule sur enregistrement + réécoute pour t'auto-évaluer.
+- Toute la progression vit dans le navigateur de l'appareil (localStorage). Pas de compte, pas
+  de serveur.
 
 ## Structure
 
 ```
 .
-├── index.html            # page unique + moteur de rendu JS
+├── index.html            # app complète (UI + moteur + base vocabulaire intégrée)
 └── assets/
     ├── portrait-1.jpg
     └── portrait-2.jpg
 ```
 
-## Sous le capot
+## Origine
 
-Le design a été conçu sur [Claude Design](https://claude.ai/design) au format `.dc`
-(template avec liaisons `{{ }}`, `onClick`, `style-hover`, `sc-if` / `sc-for`, et une logique
-d'état `renderVals()`), normalement rendu par un runtime React.
-
-Cette version est une **implémentation autonome** : un petit moteur de rendu en JavaScript pur
-(≈150 lignes, sans framework) reproduit fidèlement les liaisons du format `.dc` et porte la
-logique d'état d'origine. Aucune dépendance externe hormis les polices Google Fonts (DM Serif
-Display, DM Sans, DM Mono).
-
-### Paramètres configurables
-
-En haut du `<script>` de `index.html`, objet `props` :
-
-- `progressB2` (défaut `68`) — avancement vers le jalon B2 ; pilote l'étiquette et la barre.
-- `reminderTime` (défaut `"12:00"`) — heure du rappel quotidien affichée dans Réglages.
-
-## Licence
-
-Projet personnel. Les photos de `assets/` sont des portraits personnels, merci de ne pas les
-réutiliser.
+Design conçu sur Claude Design (composant FluentPO), puis implémenté en application autonome et
+enrichi avec le vocabulaire de l'ebook PO. Les photos de `assets/` sont des portraits
+personnels, merci de ne pas les réutiliser.
