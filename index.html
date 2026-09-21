@@ -37,17 +37,142 @@
 /* ================= DONNÉES (base vocabulaire extraite de l'ebook PO) ================= */
 const DATA = {"terms": [{"en": "Stakeholder", "fr": "partie prenante", "theme": "Parties prenantes"}, {"en": "End user", "fr": "utilisateur final", "theme": "Parties prenantes"}, {"en": "Cross-functional team", "fr": "équipe pluridisciplinaire", "theme": "Parties prenantes"}, {"en": "Engineering lead", "fr": "responsable technique / tech lead", "theme": "Parties prenantes"}, {"en": "C-suite / Exec", "fr": "direction générale / comité exécutif", "theme": "Parties prenantes"}, {"en": "Customer-facing", "fr": "en contact direct avec le client", "theme": "Parties prenantes"}, {"en": "Feature", "fr": "fonctionnalité", "theme": "Vocabulaire produit"}, {"en": "Core feature", "fr": "fonctionnalité principale", "theme": "Vocabulaire produit"}, {"en": "Feature flag", "fr": "interrupteur permettant d'activer ou désactiver une fonctionnalité sans déploiement", "theme": "Vocabulaire produit"}, {"en": "Product vision", "fr": "vision produit", "theme": "Vocabulaire produit"}, {"en": "Product strategy", "fr": "stratégie produit", "theme": "Vocabulaire produit"}, {"en": "Product roadmap", "fr": "feuille de route produit", "theme": "Vocabulaire produit"}, {"en": "Value proposition", "fr": "proposition de valeur", "theme": "Vocabulaire produit"}, {"en": "Use case", "fr": "cas d'usage", "theme": "Vocabulaire produit"}, {"en": "User journey", "fr": "parcours utilisateur", "theme": "Vocabulaire produit"}, {"en": "User story", "fr": "description d'un besoin utilisateur du point de vue de l'utilisateur", "theme": "Vocabulaire produit"}, {"en": "Pain point", "fr": "point de friction, problème rencontré par l'utilisateur", "theme": "Vocabulaire produit"}, {"en": "Scope", "fr": "périmètre, portée", "theme": "Vocabulaire produit"}, {"en": "Trade-off", "fr": "compromis", "theme": "Vocabulaire produit"}, {"en": "Edge case", "fr": "cas limite, cas particulier", "theme": "Vocabulaire produit"}, {"en": "Must-have", "fr": "indispensable", "theme": "Vocabulaire produit"}, {"en": "Nice-to-have", "fr": "souhaitable mais non essentiel", "theme": "Vocabulaire produit"}, {"en": "Out-of-the-box", "fr": "disponible sans développement spécifique, prêt à l'emploi", "theme": "Vocabulaire produit"}, {"en": "Workaround", "fr": "solution de contournement", "theme": "Vocabulaire produit"}, {"en": "Sprint", "fr": "période de travail fixe durant laquelle l'équipe livre un incrément", "theme": "Construction & delivery"}, {"en": "Iteration", "fr": "itération, cycle de développement", "theme": "Construction & delivery"}, {"en": "Release", "fr": "version livrée, mise en production", "theme": "Construction & delivery"}, {"en": "Hotfix", "fr": "correctif urgent appliqué directement en production", "theme": "Construction & delivery"}, {"en": "Bug", "fr": "anomalie, défaut de fonctionnement", "theme": "Construction & delivery"}, {"en": "Regression", "fr": "régression, réapparition d'un bug déjà corrigé", "theme": "Construction & delivery"}, {"en": "Technical debt", "fr": "dette technique", "theme": "Construction & delivery"}, {"en": "Feasibility", "fr": "faisabilité", "theme": "Construction & delivery"}, {"en": "Estimate", "fr": "estimation du temps ou de l'effort nécessaire", "theme": "Construction & delivery"}, {"en": "Velocity", "fr": "vélocité, mesure de la capacité de livraison de l'équipe", "theme": "Construction & delivery"}, {"en": "Milestone", "fr": "jalon, étape clé", "theme": "Construction & delivery"}, {"en": "Bottleneck", "fr": "goulot d'étranglement, blocage", "theme": "Construction & delivery"}, {"en": "Dependencies", "fr": "dépendances", "theme": "Construction & delivery"}, {"en": "Go-live", "fr": "mise en production, lancement officiel", "theme": "Construction & delivery"}, {"en": "Rollback", "fr": "retour à la version précédente en cas de problème", "theme": "Construction & delivery"}, {"en": "A/B test", "fr": "test comparatif entre deux versions d'une fonctionnalité", "theme": "Construction & delivery"}, {"en": "Refactoring", "fr": "restructuration du code sans changement de comportement", "theme": "Construction & delivery"}, {"en": "To take this offline", "fr": "traiter ce sujet en dehors de la réunion", "theme": "Formules du quotidien"}, {"en": "To be aligned", "fr": "être sur la même longueur d'onde, être d'accord", "theme": "Formules du quotidien"}, {"en": "To walk someone through something", "fr": "expliquer quelque chose en détail à quelqu'un", "theme": "Formules du quotidien"}, {"en": "To follow up", "fr": "faire un suivi", "theme": "Formules du quotidien"}, {"en": "To loop someone in", "fr": "inclure quelqu'un dans la conversation", "theme": "Formules du quotidien"}, {"en": "A blocker", "fr": "un point bloquant", "theme": "Formules du quotidien"}, {"en": "To be on the safe side", "fr": "par précaution, pour être sûr", "theme": "Formules du quotidien"}, {"en": "Le standup a une structure immuable", "fr": "ce que j'ai fait, ce que je fais, ce qui me bloque. Mais en pratique, c'est aussi le moment où vous devez gérer les débordements, recadrer poliment, et maintenir l'énergie du groupe.", "theme": "Général"}, {"en": "Blocker", "fr": "point bloquant", "theme": "Rituels agiles"}, {"en": "Progress", "fr": "avancement", "theme": "Rituels agiles"}, {"en": "Update", "fr": "mise à jour", "theme": "Rituels agiles"}, {"en": "Deadline", "fr": "date limite", "theme": "Rituels agiles"}, {"en": "Priority", "fr": "priorité", "theme": "Rituels agiles"}, {"en": "Task", "fr": "tâche", "theme": "Rituels agiles"}, {"en": "Alignment", "fr": "alignement (d’équipe)", "theme": "Rituels agiles"}, {"en": "Dependency", "fr": "dépendance", "theme": "Rituels agiles"}, {"en": "Deliverable", "fr": "livrable", "theme": "Rituels agiles"}, {"en": "Sprint goal", "fr": "objectif du sprint", "theme": "Sprint planning"}, {"en": "Backlog", "fr": "liste des éléments à traiter", "theme": "Sprint planning"}, {"en": "Story points", "fr": "points d’effort", "theme": "Sprint planning"}, {"en": "Estimation", "fr": "estimation", "theme": "Sprint planning"}, {"en": "Capacity", "fr": "capacité de l’équipe", "theme": "Sprint planning"}, {"en": "Acceptance criteria", "fr": "critères d’acceptation", "theme": "Sprint planning"}, {"en": "Sprint backlog", "fr": "backlog du sprint", "theme": "Sprint planning"}, {"en": "Feedback", "fr": "retour / feedback", "theme": "Rétrospective"}, {"en": "Improvement", "fr": "amélioration", "theme": "Rétrospective"}, {"en": "Action items", "fr": "actions à mettre en place", "theme": "Rétrospective"}, {"en": "What went well", "fr": "ce qui a bien fonctionné", "theme": "Rétrospective"}, {"en": "Learnings", "fr": "enseignements", "theme": "Rétrospective"}, {"en": "Team morale", "fr": "moral de l’équipe", "theme": "Rétrospective"}, {"en": "Process", "fr": "processus", "theme": "Rétrospective"}, {"en": "Issue", "fr": "problème", "theme": "Gestion de bug & QA"}, {"en": "Glitch", "fr": "dysfonctionnement mineur", "theme": "Gestion de bug & QA"}, {"en": "Defect", "fr": "défaut", "theme": "Gestion de bug & QA"}, {"en": "Error", "fr": "erreur", "theme": "Gestion de bug & QA"}, {"en": "Failure", "fr": "défaillance", "theme": "Gestion de bug & QA"}, {"en": "Crash", "fr": "plantage", "theme": "Gestion de bug & QA"}, {"en": "Breakdown", "fr": "panne", "theme": "Gestion de bug & QA"}, {"en": "Fault", "fr": "faute / anomalie", "theme": "Gestion de bug & QA"}, {"en": "Incident", "fr": "incident", "theme": "Gestion de bug & QA"}, {"en": "Root cause", "fr": "cause racine", "theme": "Gestion de bug & QA"}, {"en": "Reproduce", "fr": "reproduire (un bug)", "theme": "Gestion de bug & QA"}, {"en": "Debug", "fr": "déboguer", "theme": "Gestion de bug & QA"}, {"en": "Fix", "fr": "correctif", "theme": "Gestion de bug & QA"}, {"en": "Patch", "fr": "correctif rapide", "theme": "Gestion de bug & QA"}, {"en": "Severity", "fr": "niveau de gravité", "theme": "Gestion de bug & QA"}, {"en": "Impact", "fr": "impact", "theme": "Gestion de bug & QA"}, {"en": "Resolution", "fr": "résolution", "theme": "Gestion de bug & QA"}, {"en": "Legacy code", "fr": "code hérité", "theme": "Gestion de bug & QA"}, {"en": "Code quality", "fr": "qualité du code", "theme": "Gestion de bug & QA"}, {"en": "Maintainability", "fr": "maintenabilité", "theme": "Gestion de bug & QA"}, {"en": "Scalability", "fr": "scalabilité", "theme": "Dette technique"}, {"en": "Code smell", "fr": "signaux d’alerte de code", "theme": "Dette technique"}, {"en": "Shortcut", "fr": "raccourci (technique)", "theme": "Dette technique"}, {"en": "Complexity", "fr": "complexité", "theme": "Dette technique"}, {"en": "Cleanup", "fr": "nettoyage du code", "theme": "Dette technique"}, {"en": "Roadmap", "fr": "feuille de route", "theme": "Roadmap"}, {"en": "Timeline", "fr": "calendrier", "theme": "Roadmap"}, {"en": "Initiative", "fr": "initiative", "theme": "Roadmap"}, {"en": "Launch", "fr": "lancement", "theme": "Roadmap"}, {"en": "Phase", "fr": "phase", "theme": "Roadmap"}, {"en": "Planning", "fr": "planification", "theme": "Roadmap"}, {"en": "Strategy", "fr": "stratégie", "theme": "Roadmap"}, {"en": "Vision", "fr": "vision", "theme": "Roadmap"}, {"en": "Objective", "fr": "objectif", "theme": "Roadmap"}, {"en": "Goal", "fr": "but / objectif", "theme": "Roadmap"}, {"en": "Priority level", "fr": "niveau de priorité", "theme": "Roadmap"}, {"en": "Delivery date", "fr": "date de livraison", "theme": "Roadmap"}, {"en": "Rollout", "fr": "déploiement progressif", "theme": "Roadmap"}, {"en": "Product direction", "fr": "orientation produit", "theme": "Roadmap"}, {"en": "Incident response", "fr": "réponse à incident", "theme": "Gestion d'incident"}, {"en": "Escalation", "fr": "escalade", "theme": "Gestion d'incident"}, {"en": "Urgent", "fr": "urgent", "theme": "Gestion d'incident"}, {"en": "High priority", "fr": "priorité élevée", "theme": "Gestion d'incident"}, {"en": "Mitigation", "fr": "atténuation", "theme": "Gestion d'incident"}, {"en": "Contingency plan", "fr": "plan de secours", "theme": "Gestion d'incident"}, {"en": "Risk assessment", "fr": "évaluation des risques", "theme": "Gestion d'incident"}, {"en": "Impact analysis", "fr": "analyse d’impact", "theme": "Gestion d'incident"}, {"en": "Status report", "fr": "rapport de situation", "theme": "Gestion d'incident"}, {"en": "Root cause analysis", "fr": "analyse de la cause racine", "theme": "Gestion d'incident"}, {"en": "Resolution plan", "fr": "plan de résolution", "theme": "Gestion d'incident"}, {"en": "Recovery", "fr": "rétablissement", "theme": "Gestion d'incident"}, {"en": "Downtime", "fr": "temps d’indisponibilité", "theme": "Gestion d'incident"}, {"en": "Service disruption", "fr": "perturbation du service", "theme": "Gestion d'incident"}, {"en": "Incident log", "fr": "journal des incidents", "theme": "Gestion d'incident"}, {"en": "Stakeholder update", "fr": "mise à jour aux parties prenantes", "theme": "Gestion d'incident"}, {"en": "Utilisez-la", "fr": "elle signale immédiatement que vous avez une culture de l'amélioration continue, pas de la punition.", "theme": "Conseils & nuances"}, {"en": "Constructive feedback", "fr": "retour constructif", "theme": "Conseils & nuances"}, {"en": "Positive feedback", "fr": "retour positif", "theme": "Conseils & nuances"}, {"en": "Improvement area", "fr": "axe d’amélioration", "theme": "Conseils & nuances"}, {"en": "Strength", "fr": "point fort", "theme": "Conseils & nuances"}, {"en": "Weakness", "fr": "point faible", "theme": "Conseils & nuances"}, {"en": "Suggestion", "fr": "suggestion", "theme": "Conseils & nuances"}, {"en": "Comment", "fr": "commentaire", "theme": "Conseils & nuances"}, {"en": "Insight", "fr": "observation pertinente", "theme": "Conseils & nuances"}, {"en": "Clarification", "fr": "clarification", "theme": "Conseils & nuances"}, {"en": "Expectation", "fr": "attente", "theme": "Conseils & nuances"}, {"en": "Performance", "fr": "performance", "theme": "Conseils & nuances"}, {"en": "Behavior", "fr": "comportement", "theme": "Conseils & nuances"}, {"en": "Outcome", "fr": "résultat", "theme": "Conseils & nuances"}, {"en": "Acknowledgment", "fr": "reconnaissance", "theme": "Conseils & nuances"}, {"en": "Appreciation", "fr": "appréciation", "theme": "Conseils & nuances"}, {"en": "Follow-up", "fr": "suivi", "theme": "Conseils & nuances"}, {"en": "All hands on deck", "fr": "tout le monde sur le pont", "theme": "Expressions idiomatiques"}, {"en": "To give it your best shot", "fr": "faire de son mieux", "theme": "Expressions idiomatiques"}, {"en": "To roll with the punches", "fr": "savoir encaisser", "theme": "Expressions idiomatiques"}, {"en": "To take one for the team", "fr": "se sacrifier pour l’équipe", "theme": "Expressions idiomatiques"}, {"en": "To step on someone’s toes", "fr": "marcher sur les platebandes de quelqu’un", "theme": "Expressions idiomatiques"}, {"en": "To skate on thin ice", "fr": "jouer avec le feu", "theme": "Expressions idiomatiques"}, {"en": "To throw in the towel", "fr": "jeter l’éponge", "theme": "Expressions idiomatiques"}, {"en": "Pull your weight", "fr": "faire sa part du travail", "theme": "Expressions idiomatiques"}, {"en": "Go the extra mile", "fr": "faire un effort supplémentaire", "theme": "Expressions idiomatiques"}, {"en": "Bite the bullet", "fr": "prendre son courage à deux mains", "theme": "Expressions idiomatiques"}, {"en": "In the same boat", "fr": "être dans le même bateau", "theme": "Expressions idiomatiques"}, {"en": "By the book", "fr": "suivre les règles à la lettre", "theme": "Expressions idiomatiques"}, {"en": "Burn the midnight oil", "fr": "travailler tard dans la nuit", "theme": "Expressions idiomatiques"}, {"en": "Hit the ground running", "fr": "démarrer sur les chapeaux de roue", "theme": "Expressions idiomatiques"}], "phrases": [{"en": "This feature was designed with the end user in mind.", "fr": "Cette fonctionnalité a été conçue en pensant à l'utilisateur final."}, {"en": "We work as a cross-functional team : design, dev, and data.", "fr": "Nous travaillons en équipe pluridisciplinaire : design, dev et data."}, {"en": "Check with the engineering lead on the feasibility.", "fr": "Vérifie la faisabilité avec le tech lead."}, {"en": "We're presenting to the C-suite next Thursday.", "fr": "Nous présentons à la direction générale jeudi prochain."}, {"en": "This is a customer-facing feature : UX matters most.", "fr": "C'est une fonctionnalité visible par le client : l'expérience utilisateur est prioritaire."}, {"en": "The main pain point is that users can't find the settings page.", "fr": "Le principal point de friction, c'est que les utilisateurs ne trouvent pas la page de paramètres."}, {"en": "That's out of scope for this quarter.", "fr": "Ce n'est pas dans le périmètre de ce trimestre."}, {"en": "There's a trade-off between speed and quality here.", "fr": "Il y a un compromis à faire ici entre rapidité et qualité."}, {"en": "Can you give me a rough estimate for this feature?", "fr": "Tu peux me donner une estimation approximative pour cette fonctionnalité ?"}, {"en": "We have dependencies on the data team before we can go live.", "fr": "Nous sommes dépendants de l'équipe data avant de pouvoir lancer."}, {"en": "The velocity dropped this sprint. Let's understand why.", "fr": "La vélocité a baissé ce sprint."}, {"en": "I want to make sure we're aligned on this.", "fr": "Je veux m'assurer qu'on est bien d'accord là-dessus."}, {"en": "Let's loop in the design team.", "fr": "Incluons l'équipe design dans la conversation."}, {"en": "We're running over, let's wrap up.", "fr": "On dépasse, passons à la conclusion Le daily stand-up"}, {"en": "Does the team feel comfortable committing to this?", "fr": "L'équipe se sent à l'aise pour s'engager sur ça ?"}, {"en": "This story is too big. Can we break it down?", "fr": "Cette story est trop grosse, peut-on la découper ?"}, {"en": "What are our dependencies going into this sprint?", "fr": "Quelles sont nos dépendances pour ce sprint ?"}, {"en": "What should we do differently next time?", "fr": "Que devrions-nous faire différemment la prochaine fois ?"}, {"en": "Let's focus on actions, not blame.", "fr": "Concentrons-nous sur les actions, pas sur les responsabilités."}, {"en": "What's one thing we can commit to improving?", "fr": "Quelle est la chose sur laquelle on s'engage à progresser ?"}, {"en": "It needs to ship before anything else.", "fr": "C'est une priorité absolue."}, {"en": "We're going to punt on this for now.", "fr": "On reporte ça pour l'instant (registre informel, très courant)."}, {"en": "Let's stack rank these items.", "fr": "Classons ces éléments par ordre de priorité."}, {"en": "This epic spans three sprints.", "fr": "Cet epic s'étale sur trois sprints."}, {"en": "What's the blast radius?", "fr": "Quelle est l'étendue de l'impact ?"}, {"en": "We need to hotfix this, it can't wait for the next sprint.", "fr": "Il faut un correctif urgent, ça ne peut pas attendre le prochain sprint."}, {"en": "We need to allocate capacity for refactoring.", "fr": "On doit allouer de la capacité pour le refactoring."}, {"en": "If we don't address this now, it'll cost us twice as much later.", "fr": "Si on ne traite pas ça maintenant, ça nous coûtera deux fois plus cher plus tard."}, {"en": "We're committing to the outcome, not the output.", "fr": "On s'engage sur le résultat, pas sur la livrable exacte."}, {"en": "This is a living document ; expect it to evolve.", "fr": "C'est un document vivant ; il va évoluer."}, {"en": "This is subject to change depending on what we learn.", "fr": "C'est susceptible d'évoluer selon ce qu'on apprend."}, {"en": "We're treating this as a working assumption.", "fr": "On considère ça comme une hypothèse de travail."}, {"en": "This is on our radar, but not committed yet.", "fr": "C'est dans notre viseur, mais pas encore engagé."}, {"en": "Help me understand the urgency, what's the business impact if we don't do this now?", "fr": "Aidez-moi à comprendre l'urgence."}, {"en": "What should we deprioritize?", "fr": "Si on intègre ça, quelque chose doit sortir — qu'est-ce qu'on déprioritise ?"}, {"en": "Can we get 48 hours to assess properly?", "fr": "Peut-on avoir 48 heures pour évaluer correctement ?"}, {"en": "We need to keep stakeholders informed, I'll handle comms.", "fr": "On doit tenir les parties prenantes informées."}, {"en": "What's our rollback plan if this doesn't work?", "fr": "Quel est notre plan de rollback si ça ne fonctionne pas ?"}, {"en": "Here's what happened and what we're doing to prevent recurrence.", "fr": "Le problème est résolu."}, {"en": "Feel free to push back.", "fr": "Je veux partager une observation. N'hésitez pas à me contredire."}, {"en": "My concern is X. Am I missing context?", "fr": "Mon inquiétude est X — est- ce que je manque de contexte ?"}, {"en": "The intent is clear. The impact isn't landing as intended.", "fr": "L'intention est claire. L'impact n'est pas celui escompté"}, {"en": "She really went the extra mile to make sure the client was satisfied.", "fr": "Elle a vraiment fait un effort supplémentaire pour s’assurer que le client était satisfait."}, {"en": "Keep your eye on the ball during this shift to accomodate the clients.", "fr": "Reste concentré pendant ta journée pour arranger le client."}]};
 
-/* Questions de grammaire (present perfect vs past simple, contexte PO) */
-const QUIZ = [
-  { q:'Our NPS ____ by 6 points since the redesign.', opts:['improved','has improved'], correct:1, exp:'« since the redesign » relie le passé au présent → present perfect.' },
-  { q:'We ____ the beta last sprint.', opts:['shipped','have shipped'], correct:0, exp:'« last sprint » = moment terminé et daté → past simple.' },
-  { q:'I ____ with distributed teams for two years.', opts:['worked','have worked'], correct:1, exp:'« for two years », encore vrai aujourd\'hui → present perfect.' },
-  { q:'The team ____ three releases this quarter.', opts:['delivered','has delivered'], correct:1, exp:'Trimestre en cours → bilan → present perfect.' },
-  { q:'She ____ the roadmap to the C-suite in May.', opts:['presented','has presented'], correct:0, exp:'« in May » = date précise et passée → past simple.' },
-  { q:'We ____ that risk already.', opts:['mitigated','have mitigated'], correct:1, exp:'« already » → present perfect.' },
-  { q:'The velocity ____ last sprint, so we investigated.', opts:['dropped','has dropped'], correct:0, exp:'« last sprint » terminé → past simple.' },
-  { q:'We ____ our Q3 milestone two weeks early.', opts:['hit','have hit'], correct:0, exp:'Événement daté et achevé → past simple.' }
+/* ===== Leçons quotidiennes : chaque jour un thème (lecture + vocabulaire du thème + grammaire) ===== */
+const LESSONS = [
+  { theme:'Parties prenantes', kicker:'LEÇON · NIVEAU B2 · STAKEHOLDER MANAGEMENT', title:['Stakeholder','management'], sub:'Aligner des parties prenantes aux priorités divergentes',
+    reading:[
+      'As a Product Owner, you rarely own the roadmap alone. <b>Stakeholders</b> — sales, support, engineering, legal — all arrive with requests that feel urgent to them.',
+      'Your job is not to say yes. It is to make the trade-off explicit and keep the <b>cross-functional team</b> aligned on the outcome. The <b>end user</b> stays at the centre of every call.',
+      'A short weekly note to the <b>C-suite</b> works better than a long steering committee: here is what shipped, here is what slipped, and here is why.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['Present perfect','vs past simple'],
+      rule:'Le <strong>past simple</strong> raconte un moment terminé et daté. Le <strong>present perfect</strong> relie un fait passé au présent : bilan, expérience, résultat encore vrai.',
+      examples:[ {tag:'PAST',html:'We <strong>shipped</strong> the beta <em>last sprint</em>.',note:'Sprint fini, date précise.'}, {tag:'PERF',html:'We <strong>have shipped</strong> three releases <em>this quarter</em>.',note:'Trimestre en cours → bilan.'}, {tag:'PERF',html:'I <strong>have worked</strong> with distributed teams <em>for two years</em>.',note:'Encore vrai aujourd\'hui.'} ],
+      quiz:[ {q:'Our NPS ____ by 6 points since the redesign.',opts:['improved','has improved'],correct:1,exp:'« since » relie au présent → present perfect.'}, {q:'We ____ the beta last sprint.',opts:['shipped','have shipped'],correct:0,exp:'« last sprint » terminé → past simple.'}, {q:'I ____ with this stakeholder for years.',opts:['worked','have worked'],correct:1,exp:'« for years », encore vrai → present perfect.'}, {q:'She ____ the roadmap to the C-suite in May.',opts:['presented','has presented'],correct:0,exp:'« in May » daté → past simple.'} ] } },
+
+  { theme:'Vocabulaire produit', kicker:'LEÇON · NIVEAU B2 · PRODUCT FUNDAMENTALS', title:['Product','vision'], sub:'Nommer la valeur, le périmètre et les priorités',
+    reading:[
+      'Every roadmap starts with a <b>product vision</b> and a clear <b>value proposition</b>. Without them, a backlog is just a list of features nobody can prioritise.',
+      'Good <b>user stories</b> describe a need from the user\'s point of view. Each one names a real <b>pain point</b> and stays inside a defined <b>scope</b>.',
+      'Some items are a <b>must-have</b>, others only a <b>nice-to-have</b>. Saying which is which, out loud, is half of the job.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 · 5 MIN', title:['Countable','& uncountable'],
+      rule:'Certains noms sont <strong>indénombrables</strong> (feedback, information, progress, scope) : pas de pluriel, on utilise <em>some / much / a piece of</em>. Les dénombrables prennent <em>a/an, many, a few</em>.',
+      examples:[ {tag:'UNCOUNT',html:'We got a lot of <strong>feedback</strong> on the MVP.',note:'Jamais « feedbacks ».'}, {tag:'COUNT',html:'We shipped <strong>a few features</strong> this sprint.',note:'Pluriel possible.'}, {tag:'UNCOUNT',html:'We made good <strong>progress</strong> on the scope.',note:'« progress » invariable.'} ],
+      quiz:[ {q:'We received a lot of ____ from users.',opts:['feedbacks','feedback'],correct:1,exp:'« feedback » est indénombrable.'}, {q:'How ____ user stories are left?',opts:['much','many'],correct:1,exp:'« stories » dénombrable → many.'}, {q:'We have ____ information to decide.',opts:['enough','many'],correct:0,exp:'« information » indénombrable → enough.'}, {q:'There are ____ must-haves in this epic.',opts:['a few','a little'],correct:0,exp:'Dénombrable → a few.'} ] } },
+
+  { theme:'Construction & delivery', kicker:'LEÇON · NIVEAU B2 · DELIVERY', title:['Shipping','the work'], sub:'Du sprint à la mise en production',
+    reading:[
+      'A <b>sprint</b> ends with an increment you can actually ship. Some go out as a full <b>release</b>, others as a quiet <b>deployment</b> behind a flag.',
+      'When something breaks in production, a <b>hotfix</b> or a <b>rollback</b> buys you time. Watch the <b>velocity</b>: if it drops, understand why before you promise more.',
+      'Every <b>milestone</b> you hit early is credibility you can spend later with your stakeholders.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['For','vs since'],
+      rule:'Avec le present perfect : <strong>for</strong> + durée (for two weeks), <strong>since</strong> + point de départ (since Monday, since the release).',
+      examples:[ {tag:'FOR',html:'We have been in code freeze <strong>for</strong> three days.',note:'Durée.'}, {tag:'SINCE',html:'Velocity has dropped <strong>since</strong> the reorg.',note:'Point de départ.'}, {tag:'FOR',html:'I have owned this backlog <strong>for</strong> a year.',note:'Durée.'} ],
+      quiz:[ {q:'We have been blocked ____ Monday.',opts:['for','since'],correct:1,exp:'Point de départ → since.'}, {q:'The build has been red ____ two hours.',opts:['for','since'],correct:0,exp:'Durée → for.'}, {q:'Nothing has shipped ____ the last release.',opts:['for','since'],correct:1,exp:'Point de départ → since.'}, {q:'She has led delivery ____ six months.',opts:['for','since'],correct:0,exp:'Durée → for.'} ] } },
+
+  { theme:'Rituels agiles', kicker:'LEÇON · NIVEAU B2 · THE DAILY STANDUP', title:['Running the','standup'], sub:'Tenir le rythme sans écraser l\'équipe',
+    reading:[
+      'The standup has one job: surface <b>progress</b> and any <b>blocker</b> fast. Keep it brief; you can take the details offline.',
+      'When a topic runs long, timebox it: "Let\'s park it for after the standup." Protect the <b>deadline</b> and the <b>priority</b> of the day.',
+      'End on what matters: the next <b>deliverable</b>, its owner, and any <b>dependency</b> that could slow it down.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 · 5 MIN', title:['Present continuous','for now'],
+      rule:'Le <strong>present continuous</strong> (am/is/are + -ing) décrit une action en cours maintenant ou une tendance temporaire. Le <strong>present simple</strong> décrit une habitude ou une vérité générale.',
+      examples:[ {tag:'NOW',html:'I\'m <strong>working</strong> on the payment bug today.',note:'En cours maintenant.'}, {tag:'HABIT',html:'We <strong>run</strong> the standup at 9:30 every day.',note:'Habitude.'}, {tag:'TREND',html:'The team <strong>is shipping</strong> faster this month.',note:'Tendance temporaire.'} ],
+      quiz:[ {q:'Right now I ____ on the blocker.',opts:['work','am working'],correct:1,exp:'Maintenant → present continuous.'}, {q:'We ____ a retro every two weeks.',opts:['hold','are holding'],correct:0,exp:'Habitude → present simple.'}, {q:'Sorry, I ____ to another team this week.',opts:['talk','am talking'],correct:1,exp:'Temporaire → continuous.'}, {q:'The build ____ ten minutes normally.',opts:['takes','is taking'],correct:0,exp:'Vérité générale → simple.'} ] } },
+
+  { theme:'Sprint planning', kicker:'LEÇON · NIVEAU B2 · SPRINT PLANNING', title:['Planning the','sprint'], sub:'S\'engager sans surengager',
+    reading:[
+      'Planning opens with one question: what\'s our <b>sprint goal</b>? Everything else is negotiable around it.',
+      'If a <b>user story</b> is too big, break it down. Make the <b>acceptance criteria</b> clear before anyone commits.',
+      'Ask about <b>dependencies</b> going into the sprint. The team commits to an outcome, not to a pile of tickets.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 · 5 MIN', title:['Will','vs going to'],
+      rule:'<strong>Going to</strong> = intention déjà décidée ou prévision fondée sur des indices. <strong>Will</strong> = décision au moment de parler, promesse, prédiction générale.',
+      examples:[ {tag:'PLAN',html:'We\'re <strong>going to</strong> descope the reporting epic.',note:'Décidé d\'avance.'}, {tag:'DECIDE',html:'OK, I\'ll <strong>take</strong> that ticket.',note:'Décision immédiate.'}, {tag:'PREDICT',html:'At this rate we <strong>won\'t</strong> make the deadline.',note:'Prévision sur indices.'} ],
+      quiz:[ {q:'Look at the burndown — we ____ miss the goal.',opts:['will','are going to'],correct:1,exp:'Prévision sur indices → going to.'}, {q:'The phone\'s ringing. I ____ get it.',opts:['\'ll','\'m going to'],correct:0,exp:'Décision immédiate → will.'}, {q:'We\'ve decided: we ____ split this story.',opts:['will','are going to'],correct:1,exp:'Décidé d\'avance → going to.'}, {q:'Don\'t worry, it ____ be fine.',opts:['will','is going to'],correct:0,exp:'Prédiction générale → will.'} ] } },
+
+  { theme:'Rétrospective', kicker:'LEÇON · NIVEAU B2 · THE RETRO', title:['The','retrospective'], sub:'Améliorer le système, pas blâmer les gens',
+    reading:[
+      'A retro asks three things: what went well, what didn\'t, and what we\'ll change. Focus on actions, not blame.',
+      'Talk about what the team <b>used to</b> do and what it does now. Small, owned improvements beat a long wish-list.',
+      'Close with one commitment you can actually keep before the next retro.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['Used to','& would'],
+      rule:'<strong>Used to</strong> + base = habitude passée révolue. <strong>Would</strong> + base = habitude passée répétée (pas pour les états). Present : <em>be used to</em> + -ing = être habitué à.',
+      examples:[ {tag:'PAST',html:'We <strong>used to</strong> deploy once a month.',note:'Habitude passée finie.'}, {tag:'PAST',html:'Every Friday we <strong>would</strong> demo to the team.',note:'Habitude répétée.'}, {tag:'NOW',html:'I\'m <strong>used to</strong> working async now.',note:'Habitué à (présent).'} ],
+      quiz:[ {q:'We ____ have long steering committees.',opts:['used to','are used to'],correct:0,exp:'Habitude passée → used to.'}, {q:'Back then, he ____ review every ticket himself.',opts:['would','will'],correct:0,exp:'Habitude passée répétée → would.'}, {q:'She\'s ____ giving feedback in English.',opts:['used to','use to'],correct:0,exp:'be used to + -ing.'}, {q:'I ____ working late, but not anymore.',opts:['used to','would'],correct:0,exp:'État passé → used to.'} ] } },
+
+  { theme:'Roadmap', kicker:'LEÇON · NIVEAU B2 · PRESENTING THE ROADMAP', title:['Presenting the','roadmap'], sub:'Annoncer sans surpromettre',
+    reading:[
+      'Open with your assumptions, not a context slide: "I want to flag a few working assumptions upfront."',
+      'Separate what is <b>committed</b> from what is only <b>on our radar</b>. Everything here is <b>subject to change</b> as you learn.',
+      'A roadmap is a direction, not a contract. Say so, and you buy room to re-prioritise later.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['Modals of','possibility'],
+      rule:'Pour nuancer : <strong>might / may / could</strong> = possibilité (peut-être). <strong>should</strong> = probabilité/attente. <strong>will</strong> = certitude. Utile pour ne pas surpromettre.',
+      examples:[ {tag:'MAYBE',html:'We <strong>might</strong> pull this into Q3.',note:'Possible, non promis.'}, {tag:'EXPECT',html:'It <strong>should</strong> ship by October.',note:'Attendu, probable.'}, {tag:'SURE',html:'This <strong>will</strong> be in the next release.',note:'Certitude.'} ],
+      quiz:[ {q:'Nothing is decided, so we ____ change this.',opts:['might','will'],correct:0,exp:'Possibilité → might.'}, {q:'If tests pass, it ____ be done tomorrow.',opts:['should','might not'],correct:0,exp:'Attente probable → should.'}, {q:'I can\'t promise, it ____ slip.',opts:['could','will'],correct:0,exp:'Possibilité → could.'}, {q:'This is signed off — it ____ ship Friday.',opts:['will','might'],correct:0,exp:'Certitude → will.'} ] } },
+
+  { theme:'Conseils & nuances', kicker:'LEÇON · NIVEAU C1 · DIPLOMATIC ENGLISH', title:['Saying it','diplomatically'], sub:'Dire les choses difficiles sans casser la relation',
+    reading:[
+      'In English-speaking teams, hard messages are softened. You lead with the positive, then name the concern.',
+      'Instead of "this is wrong", try "I see this a bit differently — here\'s my concern." Instead of "no", try "help me understand the impact first."',
+      'Diplomacy is not weakness. It keeps the door open while you still make the point.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · C1 · 5 MIN', title:['Softening with','modals'],
+      rule:'Pour adoucir : <strong>would / could / might</strong>, formes en <em>I\'d suggest</em>, <em>I\'m not sure</em>, questions indirectes. Le direct « you must / that\'s wrong » passe mal.',
+      examples:[ {tag:'SOFT',html:'I\'d <strong>suggest</strong> we revisit this next sprint.',note:'Plus doux que « we must ».'}, {tag:'SOFT',html:'<strong>Could</strong> we take that offline?',note:'Requête polie.'}, {tag:'SOFT',html:'I\'m not sure that <strong>would</strong> work — here\'s why.',note:'Désaccord amorti.'} ],
+      quiz:[ {q:'____ you help me understand the impact?',opts:['Could','Must'],correct:0,exp:'Requête polie → Could.'}, {q:'I ____ push back on this slightly.',opts:['\'d','must'],correct:0,exp:'Softening → I\'d.'}, {q:'That ____ not be the best option.',opts:['might','will'],correct:0,exp:'Adoucir → might.'}, {q:'____ we take that offline?',opts:['Shall','Do'],correct:0,exp:'Proposition polie → Shall.'} ] } },
+
+  { theme:'Gestion d\'incident', kicker:'LEÇON · NIVEAU B2 → C1 · INCIDENT', title:['Handling an','incident'], sub:'Communiquer clair quand ça casse',
+    reading:[
+      'When an incident hits, name the <b>blast radius</b> first: who is affected, how badly. Then stabilise with a <b>rollback</b> or a <b>workaround</b>.',
+      'The postmortem is <b>blameless</b>. You look for the <b>root cause</b>, not a culprit.',
+      'End with action items: what happened, the impact, the root cause, and what you\'ll change.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['The','passive'],
+      rule:'La <strong>voix passive</strong> (be + participe passé) met l\'action ou le résultat en avant, sans pointer une personne. Très utilisée dans les postmortems « blameless ».',
+      examples:[ {tag:'PASSIVE',html:'Checkout <strong>was taken down</strong> by a bad deploy.',note:'On centre le fait.'}, {tag:'PASSIVE',html:'The issue <strong>has been fixed</strong> with a rollback.',note:'Résultat, pas la personne.'}, {tag:'PASSIVE',html:'Alerts <strong>will be added</strong> to CI.',note:'Action à venir.'} ],
+      quiz:[ {q:'The bug ____ in the last release.',opts:['was introduced','introduced'],correct:0,exp:'Passif → was introduced.'}, {q:'A fix ____ deployed an hour ago.',opts:['was','has'],correct:0,exp:'be + participe → was deployed.'}, {q:'Users ____ affected for 20 minutes.',opts:['were','have'],correct:0,exp:'Passif passé → were affected.'}, {q:'New checks ____ added next sprint.',opts:['will be','will'],correct:0,exp:'Passif futur → will be added.'} ] } },
+
+  { theme:'Gestion de bug & QA', kicker:'LEÇON · NIVEAU B2 · BUGS & QA', title:['Bugs','& quality'], sub:'Parler qualité sans jargon flou',
+    reading:[
+      'Not every defect is equal. A <b>regression</b> that blocks users beats a cosmetic <b>bug</b> every time.',
+      'Reproduce it, capture the steps, and decide: <b>hotfix</b> now or schedule it. Quality is a priority call, not an afterthought.',
+      'Tell the team what you observed, not what you assume: "users can\'t reach the settings page" is better than "it\'s broken."'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['Reported','speech'],
+      rule:'Au <strong>discours rapporté</strong>, on recule souvent le temps : say → said, present → past, will → would. « He said the build was red. »',
+      examples:[ {tag:'DIRECT',html:'"The test <strong>is</strong> failing."',note:'Discours direct.'}, {tag:'REPORTED',html:'She said the test <strong>was</strong> failing.',note:'is → was.'}, {tag:'REPORTED',html:'He told me he <strong>would</strong> fix it.',note:'will → would.'} ],
+      quiz:[ {q:'He said the bug ____ critical.',opts:['was','is'],correct:0,exp:'Rapporté → was.'}, {q:'She told me she ____ ship it today.',opts:['would','will'],correct:0,exp:'will → would.'}, {q:'They said they ____ reproduced it.',opts:['had','have'],correct:0,exp:'have → had.'}, {q:'I said I ____ looking into it.',opts:['was','am'],correct:0,exp:'am → was.'} ] } },
+
+  { theme:'Dette technique', kicker:'LEÇON · NIVEAU B2 → C1 · TECH DEBT', title:['Technical','debt'], sub:'Défendre le refactoring en langage business',
+    reading:[
+      '<b>Technical debt</b> is a business problem in disguise. Left alone, it slows every future feature.',
+      'If we don\'t allocate capacity for <b>refactoring</b>, the next release will cost twice as much. Frame it as speed, not cleanup.',
+      'Make the trade-off explicit and let the business own the decision.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['Conditionals','(if)'],
+      rule:'<strong>1er conditionnel</strong> : if + present, will + base (réel, probable). <strong>2e conditionnel</strong> : if + past, would + base (hypothétique).',
+      examples:[ {tag:'1ST',html:'If we <strong>ignore</strong> this, it <strong>will</strong> slow us down.',note:'Réel, probable.'}, {tag:'2ND',html:'If we <strong>had</strong> more capacity, we <strong>would</strong> refactor.',note:'Hypothétique.'}, {tag:'1ST',html:'If tests <strong>pass</strong>, we <strong>\'ll</strong> ship tonight.',note:'Réel.'} ],
+      quiz:[ {q:'If we don\'t fix it, it ____ get worse.',opts:['will','would'],correct:0,exp:'1er conditionnel → will.'}, {q:'If I ____ the CEO, I\'d invest here.',opts:['were','am'],correct:0,exp:'2e conditionnel → were.'}, {q:'If we refactor now, we ____ time later.',opts:['will save','would save'],correct:0,exp:'Réel → will save.'}, {q:'If we had more devs, we ____ move faster.',opts:['would','will'],correct:0,exp:'Hypothétique → would.'} ] } },
+
+  { theme:'Expressions idiomatiques', kicker:'LEÇON · NIVEAU C1 · IDIOMS AT WORK', title:['Idioms','that land'], sub:'Sonner naturel en réunion',
+    reading:[
+      'Idioms grease the wheels. "Let\'s all pull our weight" or "we\'re on the same page" say a lot in a few words.',
+      'When things get tense, "let\'s not skate on thin ice" or "we need to bite the bullet" carry the message with a lighter touch.',
+      'Use them sparingly and in context — one well-placed idiom beats five forced ones.'
+    ],
+    grammar:{ kicker:'GRAMMAIRE · B2 → C1 · 5 MIN', title:['Comparatives','& superlatives'],
+      rule:'Court : <em>-er / -est</em> (faster, fastest). Long : <em>more / most</em> (more reliable). Irréguliers : good→better→best, bad→worse→worst.',
+      examples:[ {tag:'COMP',html:'This release is <strong>faster</strong> than the last.',note:'Adj. court + -er.'}, {tag:'COMP',html:'This approach is <strong>more reliable</strong>.',note:'Adj. long + more.'}, {tag:'SUP',html:'It\'s the <strong>best</strong> option we have.',note:'Irrégulier.'} ],
+      quiz:[ {q:'This sprint was ____ than the last.',opts:['more busy','busier'],correct:1,exp:'Court → busier.'}, {q:'It\'s the ____ solution overall.',opts:['most simple','simplest'],correct:1,exp:'Court → simplest.'}, {q:'This is ____ than I expected.',opts:['gooder','better'],correct:1,exp:'good → better.'}, {q:'That\'s the ____ idea in the backlog.',opts:['most valuable','valuablest'],correct:0,exp:'Long → most valuable.'} ] } }
 ];
+function currentLesson(){ return LESSONS[ daysSinceEpoch() % LESSONS.length ]; }
+function curQuiz(){ return currentLesson().grammar.quiz; }
 
 /* Sujets d'expression écrite (contexte PO) avec expressions cibles + corrigé modèle */
 const WRITING = [
@@ -67,19 +192,6 @@ const WRITING = [
     targets:['blast radius','root cause','rollback','action items'],
     model:"Here is what happened: a bad deploy took checkout down for twenty minutes. The blast radius was limited to EU users. The root cause was a missing migration, which we fixed with a rollback. Action items: add a migration check to CI and improve our alerting." }
 ];
-
-/* Lecture de la leçon du jour */
-const LESSON = {
-  kicker:'LEÇON · NIVEAU B2 · STAKEHOLDER MANAGEMENT',
-  title:['Stakeholder','management'],
-  sub:'Aligner des parties prenantes aux priorités divergentes',
-  terms:['stakeholder','to push back','trade-off','to descope'],
-  paras:[
-    'As a Product Owner, you rarely own the roadmap alone. <b>Stakeholders</b> — sales, support, engineering, legal — all arrive with requests that feel urgent to them.',
-    'Your job is not to say yes. It is to <b>push back</b> with evidence, make the <b>trade-off</b> explicit, and keep everyone aligned on the outcome you committed to.',
-    'A short weekly note works better than a long steering committee: "Here is what shipped, here is what slipped, and here is why." Written clarity buys you room to <b>descope</b> without losing trust.'
-  ]
-};
 
 /* ================= PERSISTANCE ================= */
 const KEY='fluentpo_v2';
@@ -176,11 +288,11 @@ function gradeCard(en,known){
   save();
 }
 
-/* lot de vocabulaire du jour (6 termes tournants) */
+/* lot de vocabulaire du jour = vocabulaire du thème de la leçon du jour */
 function dailyLot(){
-  const n=6, T=DATA.terms, start=(daysSinceEpoch()*n)%T.length;
-  const lot=[]; for(let i=0;i<n;i++) lot.push(T[(start+i)%T.length]);
-  return lot;
+  const theme=LESSONS[ daysSinceEpoch() % LESSONS.length ].theme;
+  const lot=DATA.terms.filter(t=>t.theme===theme);
+  return lot.length?lot:DATA.terms.slice(0,6);
 }
 /* phrases orales du jour (8 tournantes) */
 function dailyPhrases(){
@@ -274,6 +386,8 @@ function dash(){
   let act=0; for(let i=0;i<30;i++){ const d=new Date(Date.now()-i*DAY).toISOString().slice(0,10); if(S.history[d])act++; }
   const assidu=Math.round(act/30*100);
   const b2=S.settings.b2, c1=S.settings.c1;
+  const L=currentLesson(); const lessonTitle=L.title.join(' '); const gramTitle=L.grammar.title.join(' ');
+  const lotCount=dailyLot().length;
   const dateStr=new Date().toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}).toUpperCase();
   return `<div>
   <div style="padding:52px 34px 44px;display:flex;align-items:center;justify-content:center;gap:34px">
@@ -341,9 +455,9 @@ function dash(){
         <div class="mono" style="font-size:11px;color:#0F6E50">${doneCount} / 5 FAIT</div>
       </div>
       <div style="display:flex;flex-direction:column;gap:10px">
-        ${progItem('01','#5B3BD4','#E9E4FB','Leçon · Stakeholder management','Texte et audio — 8 min',P.lesson,'lesson')}
-        ${progItem('02','#0F6E50','#E4F5EE','Grammaire · Present perfect vs past simple','Règle + '+QUIZ.length+' questions — 5 min',P.gram,'gram')}
-        ${progItem('03','#0F6E50','#E4F5EE','Vocabulaire PO · lot du jour','6 termes en contexte produit — 4 min',P.vocab,'vocab')}
+        ${progItem('01','#5B3BD4','#E9E4FB','Leçon · '+esc(lessonTitle),'Lecture + vocabulaire du thème — 8 min',P.lesson,'lesson')}
+        ${progItem('02','#0F6E50','#E4F5EE','Grammaire · '+esc(gramTitle),'Règle + '+curQuiz().length+' questions — 5 min',P.gram,'gram')}
+        ${progItem('03','#0F6E50','#E4F5EE','Vocabulaire du jour · '+esc(L.theme),lotCount+' termes en contexte — 4 min',P.vocab,'vocab')}
         ${progItem('04','#9A6413','#FDF0DC','Pratique orale · phrases PO','8 phrases à répéter — 8 min',P.oral,'oral')}
         ${progItem('05','#432BA4','#E9E4FB','Écrit · traduction &amp; rédaction','Traduire une phrase + un sujet — 5 min',P.ecrit,'ecrit')}
       </div>
@@ -370,22 +484,15 @@ function dash(){
 }
 
 /* ================= VUE : LEÇON ================= */
-function highlight(html){
-  LESSON.terms.forEach(()=>{});
-  return html; // les <b> sont déjà des termes cliquables via post-traitement
-}
 function lesson(){
-  const tab=UI.tab;
+  const L=currentLesson(); const tab=UI.tab;
+  const themeVocab=DATA.terms.filter(t=>t.theme===L.theme);
+  const hlWords=(L.reading.join(' ').match(/<b>(.*?)<\/b>/g)||[]).map(s=>s.replace(/<\/?b>/g,''));
   const tb=(k,label)=>`<div class="clk" data-act="ltab" data-tab="${k}" style="padding:11px 24px;border-radius:999px;font-size:14px;font-weight:700;background:${tab===k?'#1B2138':'transparent'};color:${tab===k?'#F7F7FC':'#5C6280'}">${label}</div>`;
   let body='';
   if(tab==='text'){
-    const paras=LESSON.paras.map(p=>{
-      let h=p;
-      LESSON.terms.forEach(t=>{
-        const re=new RegExp('<b>('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/^(to |a )/,'')+')</b>','i');
-      });
-      // rendre chaque <b>mot</b> cliquable (ajout aux cartes)
-      h=h.replace(/<b>(.*?)<\/b>/g,(m,w)=>`<span class="clk" data-act="addword" data-en="${esc(w)}" style="background:#E9E4FB;border-bottom:1px solid #5B3BD4;padding:0 2px;border-radius:3px">${w}</span>`);
+    const paras=L.reading.map(p=>{
+      const h=p.replace(/<b>(.*?)<\/b>/g,(m,w)=>`<span class="clk" data-act="addword" data-en="${esc(w)}" style="background:#E9E4FB;border-bottom:1px solid #5B3BD4;padding:0 2px;border-radius:3px">${w}</span>`);
       return `<p style="margin:0 0 18px;font-size:17.5px;line-height:1.68;max-width:64ch">${h}</p>`;
     }).join('');
     body=`<div style="background:#fff;border-radius:26px;padding:34px 38px">
@@ -394,11 +501,12 @@ function lesson(){
       <div class="clk" data-act="lessondone" style="margin-top:20px;padding:15px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:15px;text-align:center">${S.program.lesson?'Leçon validée ✓ — relire':'Marquer la lecture comme faite'}</div>
     </div>`;
   } else if(tab==='audio'){
-    const full=LESSON.paras.map(p=>p.replace(/<[^>]+>/g,'')).join(' ');
+    const full=L.reading.map(p=>p.replace(/<[^>]+>/g,'')).join(' ');
+    const quote=full.split('. ')[0]+'.';
     const speeds=[0.75,1,1.25].map(r=>`<div class="clk mono" data-act="rate" data-rate="${r}" style="font-size:12px;padding:8px 12px;border-radius:999px;background:${UI.rate===r?'#4ED8A0':'#2E3556'};color:${UI.rate===r?'#1B2138':'#A9B0CF'}">${r}×</div>`).join('');
     body=`<div style="background:#1B2138;border-radius:26px;padding:32px;color:#F7F7FC">
       <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#A9B0CF;margin-bottom:14px">NARRATION · SYNTHÈSE ${((S.settings.accent||'en-GB')==='en-GB')?'BRITANNIQUE':'AMÉRICAINE'}</div>
-      <div class="serif" style="font-size:24px;line-height:1.4;margin-bottom:26px;max-width:54ch">"Your job is not to say yes. It is to push back with evidence."</div>
+      <div class="serif" style="font-size:24px;line-height:1.4;margin-bottom:26px;max-width:54ch">"${esc(quote)}"</div>
       <div style="display:flex;align-items:center;gap:24px;flex-wrap:wrap">
         <div class="clk" data-act="aplay" data-text="${esc(full)}" style="width:58px;height:58px;border-radius:999px;background:#4ED8A0;color:#1B2138;display:flex;align-items:center;justify-content:center;font-size:19px">${UI.audioPlaying?'❚❚':'▶'}</div>
         <div style="font-size:15px;color:#A9B0CF">${UI.audioPlaying?'Lecture en cours…':'Écouter le texte complet'}</div>
@@ -406,8 +514,10 @@ function lesson(){
       </div>
     </div>`;
   } else {
-    const rows=DATA.phrases.filter(p=>/stakeholder|push back|trade|scope|descope|roadmap|align/i.test(p.en)).slice(0,5);
-    const list=(rows.length?rows:DATA.phrases.slice(0,5)).map(p=>`<div style="display:flex;gap:14px;align-items:flex-start;background:#F7F7FC;border-radius:14px;padding:14px 16px">
+    const kw=hlWords.map(w=>w.toLowerCase().replace(/^(to |a )/,''));
+    let rows=DATA.phrases.filter(p=>kw.some(k=>k&&p.en.toLowerCase().includes(k))).slice(0,5);
+    if(!rows.length) rows=DATA.phrases.slice((daysSinceEpoch()*5)%DATA.phrases.length).slice(0,5);
+    const list=rows.map(p=>`<div style="display:flex;gap:14px;align-items:flex-start;background:#F7F7FC;border-radius:14px;padding:14px 16px">
         <div class="clk" data-act="speak" data-text="${esc(p.en)}" style="flex:0 0 auto;width:34px;height:34px;border-radius:999px;background:#5B3BD4;color:#fff;display:flex;align-items:center;justify-content:center;font-size:14px">♪</div>
         <div style="min-width:0"><div style="font-size:15.5px;line-height:1.45">${esc(p.en)}</div><div style="font-size:13px;color:#6B7192;margin-top:2px">${esc(p.fr)}</div></div>
       </div>`).join('');
@@ -416,28 +526,38 @@ function lesson(){
       <div style="display:flex;flex-direction:column;gap:10px">${list}</div>
     </div>`;
   }
+  const masteredHere=themeVocab.filter(t=>(S.vocab[t.en.toLowerCase()]||{}).mastered).length;
+  const vocabList=themeVocab.map(t=>{const inCard=!!S.cards[t.en.toLowerCase()];const mastered=(S.vocab[t.en.toLowerCase()]||{}).mastered;
+    return `<div style="background:#fff;border-radius:12px;padding:11px 14px;display:flex;justify-content:space-between;align-items:center;gap:8px">
+      <div style="min-width:0"><div style="font-size:14.5px;font-weight:700">${esc(t.en)}</div><div style="font-size:12.5px;color:#6B7192;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(t.fr)}</div></div>
+      <div style="display:flex;gap:8px;align-items:center;flex:0 0 auto">
+        <span class="clk" data-act="speak" data-text="${esc(t.en)}" style="color:#5B3BD4;font-size:15px">♪</span>
+        <span class="clk" data-act="addword" data-en="${esc(t.en)}" style="color:${mastered?'#189E74':inCard?'#189E74':'#5B3BD4'};font-weight:700;font-size:15px">${(inCard||mastered)?'✓':'+'}</span>
+      </div>
+    </div>`;}).join('');
   return `<div style="padding:34px">
     <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:22px;flex-wrap:wrap;margin-bottom:24px">
       <div>
-        <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">${LESSON.kicker}</div>
-        <h1 class="serif" style="font-size:44px;line-height:1.05;margin:0 0 8px;font-weight:400">${LESSON.title[0]} <span style="font-style:italic">${LESSON.title[1]}</span></h1>
-        <div style="font-size:15px;color:#5C6280">${LESSON.sub}</div>
+        <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">${esc(L.kicker)} · JOUR ${(daysSinceEpoch()%LESSONS.length)+1}/${LESSONS.length}</div>
+        <h1 class="serif" style="font-size:44px;line-height:1.05;margin:0 0 8px;font-weight:400">${esc(L.title[0])} <span style="font-style:italic">${esc(L.title[1])}</span></h1>
+        <div style="font-size:15px;color:#5C6280">${esc(L.sub)}</div>
       </div>
       <div style="display:flex;gap:6px;background:#EDEDF6;padding:5px;border-radius:999px">${tb('text','Texte')}${tb('audio','Audio')}${tb('ex','En contexte')}</div>
     </div>
     <div style="display:flex;gap:20px;flex-wrap:wrap">
       <div style="flex:1 1 440px;min-width:0;display:flex;flex-direction:column;gap:16px">${body}</div>
-      <div style="flex:1 1 280px;min-width:0;display:flex;flex-direction:column;gap:14px">
-        <div style="background:#E9E4FB;border-radius:24px;padding:24px">
-          <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#432BA4;margin-bottom:10px">EXPRESSIONS DE LA LEÇON</div>
-          <div style="font-size:14px;line-height:1.6;color:#432BA4;margin-bottom:16px">Clique un mot surligné dans le texte pour l'ajouter à tes cartes mémo.</div>
-          <div style="display:flex;flex-direction:column;gap:8px">
-            ${LESSON.terms.map(t=>{const inCard=!!S.cards[t];return `<div style="background:#fff;border-radius:12px;padding:12px 14px;font-size:14.5px;display:flex;justify-content:space-between;align-items:center"><span>${esc(t)}</span><span class="clk" data-act="addword" data-en="${esc(t)}" style="color:${inCard?'#189E74':'#5B3BD4'};font-weight:700">${inCard?'✓':'+'}</span></div>`;}).join('')}
+      <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:14px">
+        <div style="background:#E9E4FB;border-radius:24px;padding:22px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+            <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#432BA4">VOCABULAIRE DU JOUR</div>
+            <div class="mono" style="font-size:11px;color:#432BA4">${masteredHere}/${themeVocab.length} MAÎTRISÉS</div>
           </div>
+          <div style="font-size:13.5px;line-height:1.55;color:#432BA4;margin-bottom:14px">Thème « ${esc(L.theme)} ». Ajoute les termes en cartes (+) ou écoute-les (♪). Ils sont aussi dans l'onglet Vocabulaire.</div>
+          <div style="display:flex;flex-direction:column;gap:7px;max-height:340px;overflow-y:auto">${vocabList}</div>
         </div>
-        <div style="background:#fff;border-radius:24px;padding:24px">
+        <div style="background:#fff;border-radius:24px;padding:22px">
           <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#6B7192;margin-bottom:12px">ÉTAPE SUIVANTE</div>
-          <div style="font-size:14.5px;line-height:1.6;color:#5C6280;margin-bottom:18px">Enchaîne avec la grammaire du jour — <em>present perfect</em>.</div>
+          <div style="font-size:14.5px;line-height:1.6;color:#5C6280;margin-bottom:18px">Grammaire du jour — <em>${esc(L.grammar.title.join(' '))}</em>.</div>
           <div class="clk" data-act="view" data-view="gram" style="padding:15px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:15px;text-align:center">Continuer</div>
         </div>
       </div>
@@ -447,7 +567,8 @@ function lesson(){
 
 /* ================= VUE : GRAMMAIRE ================= */
 function gram(){
-  const i=UI.quiz.i%QUIZ.length, Q=QUIZ[i], pick=UI.quiz.pick;
+  const G=currentLesson().grammar; const QZ=G.quiz;
+  const i=UI.quiz.i%QZ.length, Q=QZ[i], pick=UI.quiz.pick;
   const opt=(k)=>{
     let border='#3A4166', bg='#252C4A';
     if(pick!==null){
@@ -457,28 +578,27 @@ function gram(){
     return `<div class="clk" data-act="pick" data-i="${k}" style="padding:16px 18px;border-radius:14px;border:1px solid ${border};background:${bg};font-size:16px">${esc(Q.opts[k])}</div>`;
   };
   const fb = pick===null ? 'Choisis la bonne forme.' : (pick===Q.correct?'✓ '+Q.exp:'✗ '+Q.exp);
+  const exColor={PAST:['#2D5EA8','#E4EDFB'],PERF:['#0F6E50','#E4F5EE']};
+  const exRows=G.examples.map(e=>{const c=exColor[e.tag]||['#5B3BD4','#E9E4FB'];
+    return `<div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start"><div class="mono" style="font-size:10px;color:${c[0]};background:${c[1]};padding:5px 8px;border-radius:999px;margin-top:2px">${esc(e.tag)}</div><div><div style="font-size:16.5px;line-height:1.45">${e.html}</div><div style="font-size:13px;color:#6B7192;margin-top:3px">${esc(e.note)}</div></div></div>`;}).join('');
   return `<div style="padding:34px">
     <div style="margin-bottom:24px">
-      <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">GRAMMAIRE DU JOUR · B2 → C1 · 5 MIN</div>
-      <h1 class="serif" style="font-size:44px;line-height:1.05;margin:0;font-weight:400">Present perfect <span style="font-style:italic">vs</span> past simple</h1>
+      <div class="mono" style="font-size:11px;letter-spacing:.14em;color:#5B3BD4;margin-bottom:10px">${esc(G.kicker)}</div>
+      <h1 class="serif" style="font-size:44px;line-height:1.05;margin:0;font-weight:400">${esc(G.title[0])} <span style="font-style:italic">${esc(G.title[1]||'')}</span></h1>
     </div>
     <div style="display:flex;gap:20px;flex-wrap:wrap">
       <div style="flex:1 1 400px;min-width:0;display:flex;flex-direction:column;gap:14px">
         <div style="background:#fff;border-radius:26px;padding:28px">
           <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#0F6E50;margin-bottom:12px">LA RÈGLE EN UNE PHRASE</div>
-          <div style="font-size:18px;line-height:1.62;max-width:58ch">Le <strong>past simple</strong> raconte un moment terminé et daté. Le <strong>present perfect</strong> relie un fait passé au présent : bilan, expérience, résultat encore vrai.</div>
+          <div style="font-size:18px;line-height:1.62;max-width:58ch">${G.rule}</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:10px">
-          <div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start"><div class="mono" style="font-size:10px;color:#2D5EA8;background:#E4EDFB;padding:5px 8px;border-radius:999px;margin-top:2px">PAST</div><div><div style="font-size:16.5px;line-height:1.45">We <strong>shipped</strong> the beta <em>last sprint</em>.</div><div style="font-size:13px;color:#6B7192;margin-top:3px">Sprint fini, date précise.</div></div></div>
-          <div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start"><div class="mono" style="font-size:10px;color:#0F6E50;background:#E4F5EE;padding:5px 8px;border-radius:999px;margin-top:2px">PERF</div><div><div style="font-size:16.5px;line-height:1.45">We <strong>have shipped</strong> three releases <em>this quarter</em>.</div><div style="font-size:13px;color:#6B7192;margin-top:3px">Trimestre en cours → bilan.</div></div></div>
-          <div style="background:#fff;border-radius:18px;padding:18px 20px;display:flex;gap:14px;align-items:flex-start"><div class="mono" style="font-size:10px;color:#0F6E50;background:#E4F5EE;padding:5px 8px;border-radius:999px;margin-top:2px">PERF</div><div><div style="font-size:16.5px;line-height:1.45">I <strong>have worked</strong> with distributed teams <em>for two years</em>.</div><div style="font-size:13px;color:#6B7192;margin-top:3px">Utile en entretien : encore vrai aujourd'hui.</div></div></div>
-        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">${exRows}</div>
       </div>
       <div style="flex:1 1 320px;min-width:0">
         <div style="background:#1B2138;border-radius:26px;padding:28px;color:#F7F7FC">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
             <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#A9B0CF">MISE EN APPLICATION</div>
-            <div class="mono" style="font-size:11px;color:#A9B0CF">${i+1} / ${QUIZ.length}</div>
+            <div class="mono" style="font-size:11px;color:#A9B0CF">${i+1} / ${QZ.length}</div>
           </div>
           <div class="serif" style="font-size:24px;line-height:1.4;margin-bottom:22px">"${esc(Q.q)}"</div>
           <div style="display:flex;flex-direction:column;gap:10px">${opt(0)}${opt(1)}</div>
@@ -953,12 +1073,12 @@ document.addEventListener('click',(e)=>{
     case 'lessondone': S.program.lesson=true; recordActivity(); toast('Leçon validée'); render(); break;
     case 'pick': {
       if(UI.quiz.pick!==null) break;
-      const k=parseInt(el.dataset.i,10); UI.quiz.pick=k; const Q=QUIZ[UI.quiz.i%QUIZ.length];
+      const k=parseInt(el.dataset.i,10); UI.quiz.pick=k; const QZ=curQuiz(); const Q=QZ[UI.quiz.i%QZ.length];
       S.quiz.answered++; if(k===Q.correct) S.quiz.correct++; else { ensureCard(('grammaire: '+Q.q).toLowerCase()); }
       S.program.gram=true; recordActivity(); render(); break;
     }
-    case 'qnext': UI.quiz.i=(UI.quiz.i+1)%QUIZ.length; UI.quiz.pick=null; render(); break;
-    case 'qskip': UI.quiz.i=(UI.quiz.i+1)%QUIZ.length; UI.quiz.pick=null; render(); break;
+    case 'qnext': UI.quiz.i=(UI.quiz.i+1)%curQuiz().length; UI.quiz.pick=null; render(); break;
+    case 'qskip': UI.quiz.i=(UI.quiz.i+1)%curQuiz().length; UI.quiz.pick=null; render(); break;
     case 'vtheme': VOCAB_THEME=el.dataset.theme; render(); break;
     case 'addcustom': {
       const enI=document.getElementById('cv_en'), frI=document.getElementById('cv_fr');

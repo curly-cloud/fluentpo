@@ -12,11 +12,14 @@ roadmap, incident, feedback, rituels agiles, etc.).
 
 - **Suivi** : série de jours réelle, grille d'activité des 48 derniers jours, assiduité sur
   30 jours, temps passé dans le mois, programme du jour qui reflète ce que tu as vraiment fait.
-- **Leçon** : lecture avec mots cliquables (ajout aux cartes), onglet **Audio** qui lit le texte
-  en synthèse vocale (accent britannique, vitesse réglable), onglet **En contexte** avec phrases
-  audio.
-- **Grammaire** : quiz present perfect / past simple, score persistant, explications, une erreur
-  crée une carte de rattrapage.
+- **Leçon du jour** : **12 leçons qui tournent chaque jour** (une par thème PO). Chaque leçon
+  réunit une lecture (mots cliquables → cartes), l'onglet **Audio** (synthèse vocale, vitesse
+  réglable), l'onglet **En contexte**, et surtout **tout le vocabulaire du thème du jour** à
+  apprendre (écouter ♪ / ajouter en carte). La Leçon, le lot de vocabulaire et la Grammaire sont
+  alignés sur le même thème et changent chaque jour.
+- **Grammaire du jour** : un point de grammaire par leçon (present perfect, for/since, modaux,
+  conditionnels, passif, discours rapporté, comparatifs…) avec règle, exemples et quiz scoré ;
+  une erreur crée une carte de rattrapage.
 - **Vocabulaire** : les 158 termes navigables par thème + un « lot du jour » tournant.
   Prononciation audio (♪), « maîtrisé » et « à revoir » alimentent les cartes.
   **Ajout perso** : un formulaire (anglais + français) crée directement une carte mémo ;
