@@ -39,12 +39,12 @@ roadmap, incident, feedback, rituels agiles, etc.).
 
 ## Synchronisation (Supabase)
 
-La synchro utilise Supabase (auth par lien magique e-mail + stockage dans les métadonnées du
-compte, sans table à créer). Config nécessaire côté Supabase, une seule fois :
-**Authentication → URL Configuration** → *Site URL* = `https://curly-cloud.github.io/fluentpo/`
-et ajouter `https://curly-cloud.github.io/fluentpo/**` aux *Redirect URLs*. La clé `anon` est
-publique par conception (sécurité assurée côté Supabase) ; ne jamais exposer la clé
-`service_role`.
+La synchro utilise Supabase : authentification **e-mail + mot de passe** (aucun e-mail envoyé)
+et stockage des données dans les métadonnées du compte (`user_metadata`), sans table SQL à
+créer. Config nécessaire côté Supabase, une seule fois :
+**Authentication → Providers → Email** → désactiver **« Confirm email »** (pour que la création
+de compte connecte directement, sans e-mail de confirmation). La clé `anon` est publique par
+conception (sécurité assurée côté Supabase) ; ne jamais exposer la clé `service_role`.
 
 ## Lancer
 

@@ -692,10 +692,14 @@ function syncCard(){
   }
   return `<div style="background:#E9E4FB;border-radius:26px;padding:26px;margin-bottom:20px">
     <div class="mono" style="font-size:11px;letter-spacing:.12em;color:#432BA4;margin-bottom:8px">SYNCHRONISATION MULTI-APPAREILS</div>
-    <div style="font-size:14.5px;color:#432BA4;line-height:1.55;margin-bottom:14px">Reçois un lien magique par e-mail. Clique-le pour retrouver ton vocabulaire et ta progression sur ton téléphone comme sur ton PC.</div>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <input id="sync_email" class="fld" type="email" placeholder="ton@email.com" style="flex:1 1 240px;background:#fff">
-      <div class="clk" data-act="magiclink" style="padding:13px 22px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:14.5px;white-space:nowrap">Recevoir le lien magique</div>
+    <div style="font-size:14.5px;color:#432BA4;line-height:1.55;margin-bottom:14px">Crée un accès (e-mail + mot de passe) une fois. Connecte-toi ensuite avec les mêmes identifiants sur ton téléphone et ton PC pour retrouver ton vocabulaire et ta progression. Aucun e-mail envoyé.</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <input id="sync_email" class="fld" type="email" placeholder="ton@email.com" autocomplete="username" style="flex:1 1 240px;background:#fff">
+      <input id="sync_pass" class="fld" type="password" placeholder="mot de passe (6+ caractères)" autocomplete="current-password" style="flex:1 1 200px;background:#fff">
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div class="clk" data-act="signin" style="flex:1;min-width:150px;text-align:center;padding:13px 22px;border-radius:999px;background:#1B2138;color:#F7F7FC;font-weight:700;font-size:14.5px">Se connecter</div>
+      <div class="clk" data-act="signup" style="padding:13px 22px;border-radius:999px;border:1px solid #C9BCF0;color:#432BA4;font-weight:700;font-size:14.5px;background:#fff">Créer un accès</div>
     </div>
   </div>`;
 }
@@ -1012,14 +1016,28 @@ document.addEventListener('click',(e)=>{
       save(); render(); break; }
     case 'editgoal': { const g=el.dataset.goal; const cur=S.settings[g]; const v=prompt('Progression '+g.toUpperCase()+' (%)',cur);
       if(v!==null){ const n=Math.max(0,Math.min(100,parseInt(v,10)||0)); S.settings[g]=n; save(); render(); } break; }
-    case 'magiclink': {
-      const inp=document.getElementById('sync_email'); const email=(inp&&inp.value||'').trim();
+    case 'signin':
+    case 'signup': {
+      const ie=document.getElementById('sync_email'), ip=document.getElementById('sync_pass');
+      const email=(ie&&ie.value||'').trim(), pass=(ip&&ip.value||'');
       if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){ toast('Entre un e-mail valide'); break; }
+      if(pass.length<6){ toast('Mot de passe : 6 caractères minimum'); break; }
       if(!SB){ toast('Synchro indisponible'); break; }
-      el.textContent='Envoi…';
-      SB.auth.signInWithOtp({ email, options:{ emailRedirectTo: location.origin+location.pathname } })
-        .then(({error})=>{ if(error){ toast('Erreur : '+error.message); render(); } else { toast('Lien envoyé ! Vérifie tes e-mails (et les spams).'); } })
-        .catch(()=>{ toast('Erreur réseau'); render(); });
+      el.textContent='…';
+      const req = act==='signup' ? SB.auth.signUp({ email, password:pass }) : SB.auth.signInWithPassword({ email, password:pass });
+      req.then(({data,error})=>{
+        if(error){
+          const m=error.message||'';
+          if(/already registered/i.test(m)) toast('Compte déjà créé : clique « Se connecter ».');
+          else if(/invalid login/i.test(m)) toast('Identifiants incorrects, ou crée l\'accès d\'abord.');
+          else toast('Erreur : '+m);
+          render();
+        } else if(act==='signup' && !data.session){
+          toast('Compte créé. Désactive « Confirm email » dans Supabase, puis « Se connecter ».'); render();
+        } else {
+          toast(act==='signup'?'Accès créé, connecté ✓':'Connecté ✓'); /* onAuthStateChange gère la synchro + rendu */
+        }
+      }).catch(()=>{ toast('Erreur réseau'); render(); });
       break;
     }
     case 'signout': { if(SB){ SB.auth.signOut().then(()=>{ SESSION=null; toast('Déconnecté'); render(); }); } break; }
