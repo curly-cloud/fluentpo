@@ -32,8 +32,19 @@ roadmap, incident, feedback, rituels agiles, etc.).
   et en trop, score de proximité, audio). **Rédaction** : sujets PO concrets avec expressions
   cibles à réutiliser, checklist des expressions employées et corrigé modèle à comparer.
   Correction hors-ligne, sans IA ni compte (proximité à une réponse-modèle, pas une note absolue).
-- **Réglages** : interrupteurs persistants, heure de rappel modifiable, objectifs B2/C1
-  éditables, **export CSV** de ta progression, réinitialisation.
+- **Réglages** : **synchronisation multi-appareils** (connexion par lien magique e-mail via
+  Supabase ; ton vocabulaire perso et ta progression sont stockés dans ton compte et rechargés
+  sur tous tes appareils, avec cache local hors-ligne), interrupteurs persistants, heure de
+  rappel modifiable, objectifs B2/C1 éditables, **export CSV**, réinitialisation.
+
+## Synchronisation (Supabase)
+
+La synchro utilise Supabase (auth par lien magique e-mail + stockage dans les métadonnées du
+compte, sans table à créer). Config nécessaire côté Supabase, une seule fois :
+**Authentication → URL Configuration** → *Site URL* = `https://curly-cloud.github.io/fluentpo/`
+et ajouter `https://curly-cloud.github.io/fluentpo/**` aux *Redirect URLs*. La clé `anon` est
+publique par conception (sécurité assurée côté Supabase) ; ne jamais exposer la clé
+`service_role`.
 
 ## Lancer
 
